@@ -1,0 +1,57 @@
+[gd_scene load_steps=11 format=3 uid="uid://d186844b7kc3e"]
+
+[ext_resource type="Script" path="res://scenes/enemies/tutorial_enemy.gd" id="1_8mbab"]
+[ext_resource type="PackedScene" uid="uid://c7sa23jiggh6b" path="res://scenes/components/hitbox_component.tscn" id="2_g7d0k"]
+[ext_resource type="PackedScene" uid="uid://bay26s3414m85" path="res://scenes/components/hurtbox_component.tscn" id="3_xjse4"]
+[ext_resource type="PackedScene" uid="uid://cd7p4hxd27qal" path="res://scenes/components/stats_component.tscn" id="4_pmyhq"]
+[ext_resource type="Texture2D" uid="uid://ce8vxd7qrr48o" path="res://assets/sprites/entities/tutorial_enemy.png" id="5_8ls36"]
+[ext_resource type="AudioStream" uid="uid://duaq0gpfg1p7g" path="res://resources/sfx/enemy/dash_death1.wav" id="6_a60n4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pnsbw"]
+size = Vector2(48, 77)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fy8ad"]
+size = Vector2(48, 24)
+
+[sub_resource type="Animation" id="Animation_w7scg"]
+resource_name = "explode_death"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2urms"]
+_data = {
+"explode_death": SubResource("Animation_w7scg")
+}
+
+[node name="TutorialEnemy2" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 11
+script = ExtResource("1_8mbab")
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("stats_component", "ignore_hurtbox") instance=ExtResource("2_g7d0k")]
+stats_component = NodePath("../StatsComponent")
+ignore_hurtbox = NodePath("../HurtboxComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(24, 38.5)
+shape = SubResource("RectangleShape2D_pnsbw")
+
+[node name="HurtboxComponent" parent="." instance=ExtResource("3_xjse4")]
+
+[node name="StatsComponent" parent="." instance=ExtResource("4_pmyhq")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(24, 39)
+scale = Vector2(3, 3)
+texture = ExtResource("5_8ls36")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(24, 66)
+shape = SubResource("RectangleShape2D_fy8ad")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2urms")
+}
+
+[node name="DashDeath" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_a60n4")

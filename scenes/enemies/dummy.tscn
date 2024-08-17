@@ -1,0 +1,74 @@
+[gd_scene load_steps=10 format=3 uid="uid://du0dsiupyghwm"]
+
+[ext_resource type="PackedScene" uid="uid://cd7p4hxd27qal" path="res://scenes/components/stats_component.tscn" id="1_5wnwf"]
+[ext_resource type="Script" path="res://scenes/enemies/dummy.gd" id="1_riq4l"]
+[ext_resource type="PackedScene" uid="uid://c7sa23jiggh6b" path="res://scenes/components/hitbox_component.tscn" id="2_335by"]
+[ext_resource type="AudioStream" uid="uid://duaq0gpfg1p7g" path="res://resources/sfx/enemy/dash_death1.wav" id="4_iy6fu"]
+[ext_resource type="Texture2D" uid="uid://bek4j26ea5kbe" path="res://assets/sprites/entities/balloon.png" id="5_fok7e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6f3d4"]
+size = Vector2(8, 16)
+
+[sub_resource type="Animation" id="Animation_4um14"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_q5dfw"]
+resource_name = "explode_death"
+length = 0.25
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6g58w"]
+_data = {
+"RESET": SubResource("Animation_4um14"),
+"explode_death": SubResource("Animation_q5dfw")
+}
+
+[node name="Dummy" type="Node2D"]
+script = ExtResource("1_riq4l")
+
+[node name="StatsComponent" parent="." instance=ExtResource("1_5wnwf")]
+MaxHealth = 10.0
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("stats_component") instance=ExtResource("2_335by")]
+stats_component = NodePath("../StatsComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(3, 7)
+shape = SubResource("RectangleShape2D_6f3d4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_6g58w")
+}
+
+[node name="DashDeath" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_iy6fu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(4, 7)
+texture = ExtResource("5_fok7e")
+hframes = 6

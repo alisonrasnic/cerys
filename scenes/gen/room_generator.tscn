@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://nswen17gcm0s"]
+
+[ext_resource type="Script" path="res://scenes/gen/room_generator.gd" id="1_e4vny"]
+
+[node name="RoomGenerator" type="Node2D" node_paths=PackedStringArray("Rooms")]
+script = ExtResource("1_e4vny")
+Rooms = NodePath("Rooms")
+
+[node name="Rooms" type="Node" parent="."]

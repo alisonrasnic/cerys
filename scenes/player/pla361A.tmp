@@ -1,0 +1,52 @@
+[gd_scene load_steps=9 format=3 uid="uid://bxsbbuk2ou42g"]
+
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_2ciwp"]
+[ext_resource type="PackedScene" uid="uid://bqoybyhek3l7q" path="res://scenes/components/input_component.tscn" id="2_csqv3"]
+[ext_resource type="PackedScene" uid="uid://cd7p4hxd27qal" path="res://scenes/components/stats_component.tscn" id="3_yo45o"]
+[ext_resource type="Texture2D" uid="uid://c8r612debqvec" path="res://assets/sprites/player/test_player.png" id="4_1cglv"]
+[ext_resource type="PackedScene" uid="uid://c7sa23jiggh6b" path="res://scenes/components/hitbox_component.tscn" id="5_jyqit"]
+[ext_resource type="Script" path="res://scenes/components/HurtboxComponent.gd" id="6_ankhw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pbhbr"]
+size = Vector2(20, 32)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uoaxg"]
+height = 32.0
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input_component", "stats_component")]
+script = ExtResource("1_2ciwp")
+input_component = NodePath("InputComponent")
+stats_component = NodePath("StatsComponent")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+offset_right = 20.0
+offset_bottom = 32.0
+color = Color(0.4059, 0.746625, 0.99, 1)
+
+[node name="InputComponent" parent="." instance=ExtResource("2_csqv3")]
+
+[node name="StatsComponent" parent="." instance=ExtResource("3_yo45o")]
+Speed = 86.5
+JumpHeight = 245.095
+DashSpeed = 232.0
+Friction = 0.915
+
+[node name="CollisionComponent" type="CollisionShape2D" parent="."]
+position = Vector2(10, 16)
+shape = SubResource("RectangleShape2D_pbhbr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(10, 16)
+scale = Vector2(1.25, 1.23077)
+texture = ExtResource("4_1cglv")
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("stats_component") instance=ExtResource("5_jyqit")]
+stats_component = NodePath("../StatsComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(10, 16)
+shape = SubResource("CapsuleShape2D_uoaxg")
+
+[node name="HurtboxComponent" type="Area2D" parent="."]
+script = ExtResource("6_ankhw")

@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfjw6js64ic0u"]
+
+[ext_resource type="Script" path="res://scenes/gen/room_gen_viewer.gd" id="1_t3y73"]
+[ext_resource type="PackedScene" uid="uid://nswen17gcm0s" path="res://scenes/gen/room_generator.tscn" id="1_x8csi"]
+
+[node name="RoomGenViewer" type="Node2D"]
+script = ExtResource("1_t3y73")
+
+[node name="RoomGenerator" parent="." instance=ExtResource("1_x8csi")]
+rooms = 100
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+zoom = Vector2(0.07, 0.07)
+
+[node name="RoomLabels" type="Node" parent="."]
+
+[node name="Label" type="Label" parent="RoomLabels"]
+offset_right = 40.0
+offset_bottom = 23.0

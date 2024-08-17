@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsv88oa6id43o"]
+
+[ext_resource type="PackedScene" uid="uid://nswen17gcm0s" path="res://scenes/gen/room_generator.tscn" id="2_h0tre"]
+
+[node name="Level" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.3, 0.3)
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2"]
+offset_left = 204.0
+offset_top = 48.0
+offset_right = 244.0
+offset_bottom = 186.0
+color = Color(0.796078, 0.858824, 0.988235, 1)
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.5, 0.5)
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/ParallaxLayer"]
+offset_left = 176.0
+offset_top = 47.0
+offset_right = 216.0
+offset_bottom = 185.0
+color = Color(0.796078, 0.858824, 0.988235, 1)
+
+[node name="RoomGenerator" parent="." instance=ExtResource("2_h0tre")]
+rooms = 100

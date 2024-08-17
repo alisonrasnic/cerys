@@ -1,0 +1,277 @@
+[gd_scene load_steps=19 format=3 uid="uid://dgeackvj11g1m"]
+
+[ext_resource type="Script" path="res://scenes/enemies/tutorial_enemy.gd" id="1_dy2jj"]
+[ext_resource type="PackedScene" uid="uid://c7sa23jiggh6b" path="res://scenes/components/hitbox_component.tscn" id="1_glxyp"]
+[ext_resource type="Shader" path="res://scenes/enemies/parry_flash.gdshader" id="1_wsfdk"]
+[ext_resource type="PackedScene" uid="uid://bay26s3414m85" path="res://scenes/components/hurtbox_component.tscn" id="2_8g7s7"]
+[ext_resource type="PackedScene" uid="uid://cd7p4hxd27qal" path="res://scenes/components/stats_component.tscn" id="3_faa5j"]
+[ext_resource type="Texture2D" uid="uid://ce8vxd7qrr48o" path="res://assets/sprites/entities/tutorial_enemy.png" id="4_45vui"]
+[ext_resource type="AudioStream" uid="uid://duaq0gpfg1p7g" path="res://resources/sfx/enemy/dash_death1.wav" id="5_e02tv"]
+[ext_resource type="AudioStream" uid="uid://b1l5nx4xj3eto" path="res://assets/sfx/parry1.wav" id="8_t47l5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pnsbw"]
+size = Vector2(37, 66)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_01coa"]
+radius = 4.0
+height = 18.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q6tpr"]
+shader = ExtResource("1_wsfdk")
+shader_parameter/disabled = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fy8ad"]
+size = Vector2(64, 83)
+
+[sub_resource type="Animation" id="Animation_d5trq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HurtboxComponent/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(16, 3)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(8, 13)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("DeathParticles:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_qrxf6"]
+resource_name = "attack"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HurtboxComponent/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(16, 3), Vector2(-7, 3), Vector2(-5, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_w7scg"]
+resource_name = "explode_death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HurtboxComponent/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DeathParticles:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_tj73f"]
+resource_name = "stun"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(8, 13), Vector2(8, 18), Vector2(8, 13)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2urms"]
+_data = {
+"RESET": SubResource("Animation_d5trq"),
+"attack": SubResource("Animation_qrxf6"),
+"explode_death": SubResource("Animation_w7scg"),
+"stun": SubResource("Animation_tj73f")
+}
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_r2hif"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+direction = Vector3(1, -2000, 0)
+spread = 19.532
+initial_velocity_min = 325.23
+initial_velocity_max = 325.23
+gravity = Vector3(0, 98, 0)
+color = Color(0.62, 0, 0.413333, 1)
+turbulence_enabled = true
+turbulence_noise_strength = 5.83
+turbulence_noise_scale = 3.051
+turbulence_influence_min = 0.0
+turbulence_influence_max = 0.378
+
+[node name="TutorialEnemy" type="CharacterBody2D" node_paths=PackedStringArray("stats_component")]
+collision_layer = 4
+collision_mask = 11
+script = ExtResource("1_dy2jj")
+stats_component = NodePath("StatsComponent")
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("stats_component", "ignore_hurtbox") instance=ExtResource("1_glxyp")]
+stats_component = NodePath("../StatsComponent")
+ignore_hurtbox = NodePath("../HurtboxComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(31.5, 51)
+shape = SubResource("RectangleShape2D_pnsbw")
+
+[node name="HurtboxComponent" parent="." instance=ExtResource("2_8g7s7")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(-2, 11)
+shape = SubResource("CapsuleShape2D_01coa")
+disabled = true
+
+[node name="StatsComponent" parent="." instance=ExtResource("3_faa5j")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_q6tpr")
+position = Vector2(8, 13)
+scale = Vector2(4, 4)
+texture = ExtResource("4_45vui")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(32, 62.5)
+shape = SubResource("RectangleShape2D_fy8ad")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2urms")
+}
+
+[node name="DashDeath" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_e02tv")
+volume_db = 12.181
+
+[node name="Parry" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_t47l5")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 16.0
+offset_top = 3.0
+offset_right = 22.0
+offset_bottom = 20.0
+color = Color(1, 1, 1, 0)
+
+[node name="DeathParticles" type="GPUParticles2D" parent="."]
+position = Vector2(8, 13)
+emitting = false
+amount = 900
+process_material = SubResource("ParticleProcessMaterial_r2hif")
+lifetime = 2.0
+explosiveness = 0.7
