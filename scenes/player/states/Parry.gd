@@ -34,8 +34,7 @@ func update(host, delta):
 func process(host, delta):
 	pass;
 
-func _on_hurtbox_component_area_entered(area):
-	var host = get_parent().get_parent();
+func _on_hurtbox_component_area_entered(host, area):
 	if area is HurtboxComponent and area != host.hurtbox_component and parry_frame:
 		print("WE PARRIED");
 		var enemy = area.get_parent();

@@ -14,7 +14,7 @@ func _ready():
 	
 	if tiles:
 		rect = Rect2i(tiles.get_used_rect().position*64, tiles.get_used_rect().size*64);
-		add_noise();
+		#add_noise();
 
 func _on_area_entered(area):
 	pass;

@@ -49,6 +49,10 @@ func _physics_process(delta):
 	
 func _process(delta):
 	
+	if position.y > 1500:
+		position = Vector2(0,-64);
+		velocity = Vector2.ZERO;
+	
 	dash_timer += delta;
 	
 	if facing == 'r':
@@ -59,6 +63,10 @@ func _process(delta):
 	var new_state = state.process(self, delta);
 	if new_state:
 		_change_state(new_state);
+		
+	if stats_component:
+		if stats_component.is_dead():
+			get_tree().quit();
 
 func _change_state(new_state, vars := []):
 	state.exit(self);
@@ -81,7 +89,7 @@ func _change_state(new_state, vars := []):
 	emit_signal('state_changed', states_stack);
 
 func _on_hurtbox_component_area_entered(area):
-	state._on_hurtbox_component_area_entered(area);
+	state._on_hurtbox_component_area_entered(self, area);
 	#if state == PlayerState.DASHING and area != hitbox_component:
 		#var enemy = area.get_parent();
 		#enemy.parry_dash_attack_receive();

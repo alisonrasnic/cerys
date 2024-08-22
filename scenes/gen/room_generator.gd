@@ -6,7 +6,7 @@ class_name RoomGenerator;
 
 @export var Rooms: Node;
 
-@onready var RoomTypes = [preload("res://scenes/gen/rooms/LRRoom.tscn"), preload("res://scenes/gen/rooms/VertLRRoom.tscn"), preload("res://scenes/gen/rooms/VertLRRoom2.tscn"), preload("res://scenes/gen/rooms/LRPitfall.tscn")];
+@onready var RoomTypes = [preload("res://scenes/gen/rooms/LRRoom.tscn"), preload("res://scenes/gen/rooms/VertLRRoom.tscn"), preload("res://scenes/gen/rooms/LRPitfall.tscn")];
 
 func _ready():
 	var rooms_arr = [];

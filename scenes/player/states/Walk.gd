@@ -36,6 +36,8 @@ func update(host, delta):
 	if host.velocity.y > 0.0:
 		host.velocity.y *= 1.05;
 	
+	check_raycast_step(host, delta);
+	
 	host.move_and_slide();
 	
 	return return_state;
@@ -51,5 +53,17 @@ func process(host, delta):
 	#if host.input_component and host.input_component.get_dash_input():
 		#host.animation.play("slash");
 
-func _on_hurtbox_component_area_entered(area):
-	pass;
+func check_raycast_step(host, delta):
+	if not host.is_on_floor():
+		return;
+	
+	if host.get_node("R").is_colliding():
+		host.position.x += 1;
+		host.position.y -= 16;
+	elif host.get_node("L").is_colliding():
+		host.position.x -= 1;
+		host.position.y -= 16;
+
+func _on_hurtbox_component_area_entered(host, area):
+	if host.stats_component and area is HurtboxComponent:
+		host.stats_component.damage(area.Damage);

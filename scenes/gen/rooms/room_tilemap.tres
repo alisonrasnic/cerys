@@ -56,7 +56,9 @@ texture_region_size = Vector2i(64, 64)
 3:3/0/physics_layer_0/angular_velocity = 0.0
 
 [resource]
-tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 2
 physics_layer_0/collision_mask = 13
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "Terrain 0"
+terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 sources/0 = SubResource("TileSetAtlasSource_46im5")

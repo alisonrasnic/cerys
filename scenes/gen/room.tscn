@@ -1,13 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://e8ckiitkqxcq"]
+[gd_scene load_steps=2 format=3 uid="uid://e8ckiitkqxcq"]
 
 [ext_resource type="Script" path="res://scenes/gen/room.gd" id="1_8f20f"]
-[ext_resource type="TileSet" uid="uid://qnpm0ntvrcte" path="res://scenes/gen/rooms/room_tilemap.tres" id="2_bm3y0"]
 
 [node name="Room" type="Node2D"]
 script = ExtResource("1_8f20f")
-
-[node name="TileMap" type="TileMap" parent="."]
-tile_set = ExtResource("2_bm3y0")
-format = 2
 
 [node name="Entrances" type="Node" parent="."]

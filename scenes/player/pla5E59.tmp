@@ -990,6 +990,8 @@ JumpHeight = 980.38
 DashSpeed = 928.0
 Gravity = 56.56
 Friction = 3.0
+MaxHealth = null
+Poise = null
 
 [node name="CollisionComponent" type="CollisionShape2D" parent="."]
 position = Vector2(7, -5.84375)

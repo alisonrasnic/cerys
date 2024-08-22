@@ -26,7 +26,7 @@ func _process(delta):
 		Stagger = 0.0;
 		get_parent().stun();
 
-func damage(amt, type):
+func damage(amt, type := 'none'):
 	Health -= amt;
 	add_stagger(amt, type);
 

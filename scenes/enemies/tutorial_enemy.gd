@@ -14,6 +14,9 @@ func _process(delta):
 	if attack_timer >= ATTACK:
 		attack_timer = 0.0;
 		$AnimationPlayer.play("attack");
+	if stats_component:
+		if stats_component.is_dead():
+			queue_free();
 
 func stun():
 	$AnimationPlayer.play("stun");

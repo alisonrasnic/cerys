@@ -28,6 +28,7 @@ func update(host, delta):
 	
 	host.velocity.y = 0;
 	
+	check_raycast_step(host, delta);
 	host.move_and_collide((host.velocity/60)/delta);
 	frame += 1;
 	
@@ -41,5 +42,17 @@ func update(host, delta):
 func process(host, delta):
 	pass;
 
-func _on_hurtbox_component_area_entered(area):
-	pass;
+func check_raycast_step(host, delta):
+	if not host.is_on_floor():
+		return;
+	
+	if host.get_node("R").is_colliding():
+		host.position.x += 1;
+		host.position.y -= 16;
+	elif host.get_node("L").is_colliding():
+		host.position.x -= 1;
+		host.position.y -= 16;
+
+func _on_hurtbox_component_area_entered(host, area):
+	if host.stats_component and area is HurtboxComponent:
+		host.stats_component.damage(area.Damage);

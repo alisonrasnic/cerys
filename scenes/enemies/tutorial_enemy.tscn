@@ -10,7 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://b1l5nx4xj3eto" path="res://assets/sfx/parry1.wav" id="8_t47l5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pnsbw"]
-size = Vector2(37, 66)
+size = Vector2(32, 52)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_01coa"]
 radius = 4.0
@@ -21,7 +21,7 @@ shader = ExtResource("1_wsfdk")
 shader_parameter/disabled = true
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fy8ad"]
-size = Vector2(64, 83)
+size = Vector2(32, 52)
 
 [sub_resource type="Animation" id="Animation_d5trq"]
 length = 0.001
@@ -226,7 +226,7 @@ stats_component = NodePath("../StatsComponent")
 ignore_hurtbox = NodePath("../HurtboxComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
-position = Vector2(31.5, 51)
+position = Vector2(16, 26)
 shape = SubResource("RectangleShape2D_pnsbw")
 
 [node name="HurtboxComponent" parent="." instance=ExtResource("2_8g7s7")]
@@ -241,12 +241,12 @@ disabled = true
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_q6tpr")
 position = Vector2(8, 13)
-scale = Vector2(4, 4)
+scale = Vector2(2, 2)
 texture = ExtResource("4_45vui")
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(32, 62.5)
+position = Vector2(16, 26)
 shape = SubResource("RectangleShape2D_fy8ad")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

@@ -61,11 +61,12 @@ func end_dash(host):
 	host.get_node("DashParticles").emitting = false;
 	host.get_node("TargetArea").get_node("CollisionShape2D").disabled = false;
 	var enemy = host.target;
-	enemy.parry_dash_attack_receive();
+	if is_instance_valid(enemy):
+		enemy.parry_dash_attack_receive();
 		
 func process(host, delta):
 	pass;
 
-func _on_hurtbox_component_area_entered(area):
+func _on_hurtbox_component_area_entered(host, area):
 	pass;
 		

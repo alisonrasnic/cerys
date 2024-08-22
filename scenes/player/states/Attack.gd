@@ -26,7 +26,10 @@ func process(host, delta):
 	
 	if not host.animation.is_playing():
 		if buffer_next_attack:
-			host.animation.play("slash_" + str(num));
+			if num > 1:
+				host.animation.play("slash_" + str(num));
+			else:
+				host.animation.play("slash");
 			buffer_next_attack = false;
 		else:
 			return_state = 'idle';
@@ -48,6 +51,7 @@ func process(host, delta):
 func update(host, delta):
 	pass;
 
-func _on_hurtbox_component_area_entered(area):
-	pass;
+func _on_hurtbox_component_area_entered(host, area):
+	if host.stats_component and area is HurtboxComponent:
+		host.stats_component.damage(area.Damage);
 
