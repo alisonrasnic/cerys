@@ -15,6 +15,12 @@ var Health = MaxHealth;
 var Stagger: float = 0.0;
 @export var Poise: float = 15.0;
 
+@export var ui_component: EntityUIComponent;
+
+func _ready():
+	if ui_component:
+		ui_component.change_max_health(MaxHealth, true);
+
 func level_up():
 	pass;
 
@@ -29,6 +35,8 @@ func _process(delta):
 func damage(amt, type := 'none'):
 	Health -= amt;
 	add_stagger(amt, type);
+	if ui_component:
+		ui_component.add_health(-amt);
 
 func add_stagger(amt, type):
 	Stagger += amt;

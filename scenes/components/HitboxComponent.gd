@@ -6,7 +6,7 @@ class_name HitboxComponent;
 @export var ignore_hurtbox: HurtboxComponent;
 
 func _on_area_entered(area):
-	if area is HurtboxComponent:
+	if area is HurtboxComponent and not area.Blocking:
 		var hurtbox = area as HurtboxComponent;
 		if hurtbox != ignore_hurtbox:
 			stats_component.damage(hurtbox.Damage);

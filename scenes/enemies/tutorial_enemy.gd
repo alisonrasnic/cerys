@@ -4,7 +4,9 @@ const ATTACK = 1.5;
 
 var attack_timer = 0.0;
 
-@export var stats_component: StatsComponent;
+@export var stats_component:   StatsComponent;
+@export var hitbox_component:  HitboxComponent;
+@export var ui_component:      EntityUIComponent;
 
 func get_width():
 	return $CollisionShape2D.shape.get_rect().size.x;
