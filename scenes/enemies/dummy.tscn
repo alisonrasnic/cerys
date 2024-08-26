@@ -54,10 +54,12 @@ script = ExtResource("1_riq4l")
 MaxHealth = 10.0
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("stats_component") instance=ExtResource("2_335by")]
+dash_die = true
 stats_component = NodePath("../StatsComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 position = Vector2(3, 7)
+scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_6f3d4")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -70,5 +72,6 @@ stream = ExtResource("4_iy6fu")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(4, 7)
+scale = Vector2(2, 2)
 texture = ExtResource("5_fok7e")
 hframes = 6

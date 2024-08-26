@@ -18,7 +18,8 @@ func _process(delta):
 		$AnimationPlayer.play("attack");
 	if stats_component:
 		if stats_component.is_dead():
-			queue_free();
+			visible = false;
+			process_mode = Node.PROCESS_MODE_DISABLED;
 
 func stun():
 	$AnimationPlayer.play("stun");
@@ -40,4 +41,5 @@ func parry_dash_attack_receive():
 	enemy_animplayer.play("explode_death");
 	get_node("DashDeath").play();
 	await get_node("DashDeath").finished;
-	queue_free();
+	visible = false;
+	process_mode = Node.PROCESS_MODE_DISABLED;

@@ -56,3 +56,12 @@ func check_raycast_step(host, delta):
 func _on_hurtbox_component_area_entered(host, area):
 	if host.stats_component and area is HurtboxComponent:
 		host.stats_component.damage(area.Damage);
+		print("Trying damage...");
+	elif area is HitboxComponent and area.ignore_hurtbox != host.hurtbox_component:
+		var hb = area as HitboxComponent;
+		if hb.dash_die:
+			print("DIE!!");
+			hb.get_parent().parry_dash_attack_receive();
+		else:	
+			print("why no die =( :", hb.dash_die);
+		

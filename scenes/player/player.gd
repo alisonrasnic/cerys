@@ -86,9 +86,11 @@ func _change_state(new_state, vars := []):
 	state = states_stack[0];
 	if new_state != 'previous':
 		state.enter(self);
-	emit_signal('state_changed', states_stack);
 
 func _on_hurtbox_component_area_entered(area):
+	if area is HurtboxComponent:
+		hitbox_component.hurtboxes_to_ignore.append(area);
+		print("Ignoring area...");
 	state._on_hurtbox_component_area_entered(self, area);
 	#if state == PlayerState.DASHING and area != hitbox_component:
 		#var enemy = area.get_parent();
@@ -99,6 +101,15 @@ func _on_hurtbox_component_area_entered(area):
 		#await area.get_parent().get_node("DashDeath").finished;
 		#enemy_animplayer.get_parent().queue_free();
 
+func _on_hurtbox_component_area_exited(area):
+	if area is HurtboxComponent:
+		var idx = hitbox_component.hurtboxes_to_ignore.find(area);
+		if idx == -1:
+			print("!!!!!!!");
+		hitbox_component.hurtboxes_to_ignore.remove_at(hitbox_component.hurtboxes_to_ignore.find(area));
+		for x in hitbox_component.hurtboxes_to_ignore:
+			print("?????: ", x);
+		print("Unignoring area...");
 
 func _on_target_area_body_entered(body):
 	target = body;
@@ -112,3 +123,5 @@ func screen_shake(amt):
 
 func get_width():
 	return $CollisionComponent.shape.get_rect().size.x;
+
+

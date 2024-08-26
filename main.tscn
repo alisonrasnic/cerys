@@ -2,12 +2,13 @@
 
 [ext_resource type="PackedScene" uid="uid://bxsbbuk2ou42g" path="res://scenes/player/player.tscn" id="1_8nbac"]
 [ext_resource type="Script" path="res://main.gd" id="1_t0hq1"]
-[ext_resource type="PackedScene" uid="uid://dsv88oa6id43o" path="res://scenes/level/level.tscn" id="3_x340m"]
+[ext_resource type="PackedScene" uid="uid://c4slnrd4xyr2d" path="res://scenes/gen/rooms/Level1.tscn" id="3_172nn"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_t0hq1")
 
 [node name="Player" parent="." instance=ExtResource("1_8nbac")]
-position = Vector2(20, -63)
+position = Vector2(3477, -310)
 
-[node name="Level" parent="." instance=ExtResource("3_x340m")]
+[node name="Room" parent="." instance=ExtResource("3_172nn")]
+position = Vector2(-51, -421)
