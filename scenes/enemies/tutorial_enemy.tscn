@@ -267,7 +267,7 @@ turbulence_influence_max = 0.378
 
 [node name="TutorialEnemy" type="CharacterBody2D" node_paths=PackedStringArray("stats_component", "hitbox_component")]
 collision_layer = 4
-collision_mask = 11
+collision_mask = 10
 script = ExtResource("1_dy2jj")
 stats_component = NodePath("StatsComponent")
 hitbox_component = NodePath("HitboxComponent")

@@ -20,7 +20,7 @@ func update(host, delta):
 	var return_state = null;
 	var input = host.input_component;
 	
-	if input and input.get_dash_input():
+	if input and input.get_dash_input(host):
 		start_dash(host);
 	
 	host.velocity.y = 0;

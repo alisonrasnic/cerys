@@ -18,11 +18,11 @@ func update(host, delta):
 	var return_state = null;
 	var input = host.input_component;
 	
-	if input and input.get_block_input():
+	if input and input.get_block_input(host):
 		if host.animation.current_animation == "parry" and not host.animation.is_playing():
 			return_state = 'block';
 			host.animation.play("block");
-	if input and not input.get_block_input():
+	if input and not input.get_block_input(host):
 		if not host.animation.is_playing():
 			host.animation.play("RESET");
 			return_state = 'idle';

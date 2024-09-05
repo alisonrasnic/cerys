@@ -34,8 +34,12 @@ func update(host, delta):
 	
 	if frame >= max_frames:
 		frame = 0;
-		host.velocity.x = 0;
 		return_state = 'previous';
+		
+		if host.input_component and abs(host.input_component.get_move_axis(host)) >= 0.01 and host.input_component.get_sprint_input(host):
+			return_state = 'run';
+		elif abs(host.input_component.get_move_axis(host)) >= 0.01:
+			host.velocity.x = 0;
 	
 	return return_state;
 
@@ -48,10 +52,10 @@ func check_raycast_step(host, delta):
 	
 	if host.get_node("R").is_colliding():
 		host.position.x += 1;
-		host.position.y -= 16;
+		host.position.y -= 18;
 	elif host.get_node("L").is_colliding():
 		host.position.x -= 1;
-		host.position.y -= 16;
+		host.position.y -= 18;
 
 func _on_hurtbox_component_area_entered(host, area):
 	if host.stats_component and area is HurtboxComponent:

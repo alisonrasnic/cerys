@@ -1,16 +1,19 @@
-[gd_scene load_steps=10 format=3 uid="uid://bdk0w51hbkwj4"]
+[gd_scene load_steps=13 format=3 uid="uid://bdk0w51hbkwj4"]
 
 [ext_resource type="Script" path="res://scenes/enemies/tutorial_enemy.gd" id="1_w8rpb"]
 [ext_resource type="PackedScene" uid="uid://c7sa23jiggh6b" path="res://scenes/components/hitbox_component.tscn" id="2_0quwy"]
 [ext_resource type="PackedScene" uid="uid://bay26s3414m85" path="res://scenes/components/hurtbox_component.tscn" id="3_w2h4t"]
 [ext_resource type="PackedScene" uid="uid://cd7p4hxd27qal" path="res://scenes/components/stats_component.tscn" id="4_qu84g"]
 [ext_resource type="AudioStream" uid="uid://duaq0gpfg1p7g" path="res://resources/sfx/enemy/dash_death1.wav" id="6_joddn"]
+[ext_resource type="Texture2D" uid="uid://bi141cqbtwycn" path="res://assets/sprites/entities/bat_1.png" id="6_ov4b0"]
+[ext_resource type="PackedScene" uid="uid://dn2t31nyhu3ac" path="res://scenes/enemies/ui/enemy_ui.tscn" id="7_ooqgk"]
+[ext_resource type="Script" path="res://scenes/components/ais/BatAIComponent.gd" id="8_qqg8u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pnsbw"]
-size = Vector2(175, 45)
+size = Vector2(63.5, 42.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fy8ad"]
-size = Vector2(175, 46)
+size = Vector2(48, 33)
 
 [sub_resource type="Animation" id="Animation_w7scg"]
 resource_name = "explode_death"
@@ -20,25 +23,31 @@ _data = {
 "explode_death": SubResource("Animation_w7scg")
 }
 
-[node name="TutorialEnemy3" type="CharacterBody2D"]
+[node name="TutorialEnemy3" type="CharacterBody2D" node_paths=PackedStringArray("stats_component", "hitbox_component", "ui_component", "input_component")]
 collision_layer = 4
 collision_mask = 11
 script = ExtResource("1_w8rpb")
+stats_component = NodePath("StatsComponent")
+hitbox_component = NodePath("HitboxComponent")
+ui_component = NodePath("EnemyUI")
+input_component = NodePath("AIComponent")
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("stats_component", "ignore_hurtbox") instance=ExtResource("2_0quwy")]
 stats_component = NodePath("../StatsComponent")
 ignore_hurtbox = NodePath("../HurtboxComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
-position = Vector2(87.5, 54.5)
+position = Vector2(32.25, 28.75)
 shape = SubResource("RectangleShape2D_pnsbw")
 
 [node name="HurtboxComponent" parent="." instance=ExtResource("3_w2h4t")]
 
-[node name="StatsComponent" parent="." instance=ExtResource("4_qu84g")]
+[node name="StatsComponent" parent="." node_paths=PackedStringArray("ui_component") instance=ExtResource("4_qu84g")]
+MaxHealth = 9.0
+ui_component = NodePath("../EnemyUI")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(87.5, 55)
+position = Vector2(31, 30.5)
 shape = SubResource("RectangleShape2D_fy8ad")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -49,8 +58,15 @@ libraries = {
 [node name="DashDeath" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_joddn")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_top = 32.0
-offset_right = 175.0
-offset_bottom = 78.0
-color = Color(0.32, 0.219413, 0.1888, 0.886275)
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(32, 32)
+texture = ExtResource("6_ov4b0")
+
+[node name="EnemyUI" parent="." instance=ExtResource("7_ooqgk")]
+offset_left = 33.0
+offset_top = -1.0
+offset_right = 33.0
+offset_bottom = -1.0
+
+[node name="AIComponent" type="Node2D" parent="."]
+script = ExtResource("8_qqg8u")

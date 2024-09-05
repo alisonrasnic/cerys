@@ -7,6 +7,7 @@ var attack_timer = 0.0;
 @export var stats_component:   StatsComponent;
 @export var hitbox_component:  HitboxComponent;
 @export var ui_component:      EntityUIComponent;
+@export var input_component:   InputComponent;
 
 func get_width():
 	return $CollisionShape2D.shape.get_rect().size.x;
@@ -20,6 +21,17 @@ func _process(delta):
 		if stats_component.is_dead():
 			visible = false;
 			process_mode = Node.PROCESS_MODE_DISABLED;
+	
+	if input_component is AIComponent:
+		var ai = input_component as AIComponent;
+		var player = get_tree().get_nodes_in_group('player')[0];
+		if player:
+			ai.update_player_position(player.position);
+			if ai.get_move_axis(self):
+				print("Ai component returning propery");
+				velocity.x = 50*input_component.get_move_axis(self);
+	
+	move_and_slide();
 
 func stun():
 	$AnimationPlayer.play("stun");

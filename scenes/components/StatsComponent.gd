@@ -18,6 +18,7 @@ var Stagger: float = 0.0;
 @export var ui_component: EntityUIComponent;
 
 func _ready():
+	Health = MaxHealth;
 	if ui_component:
 		ui_component.change_max_health(MaxHealth, true);
 

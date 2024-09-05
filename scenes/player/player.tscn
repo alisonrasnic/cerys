@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://bxsbbuk2ou42g"]
+[gd_scene load_steps=38 format=3 uid="uid://bxsbbuk2ou42g"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_2ciwp"]
 [ext_resource type="PackedScene" uid="uid://bqoybyhek3l7q" path="res://scenes/components/input_component.tscn" id="2_csqv3"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://scenes/player/ScreenShakeCamera.gd" id="8_onu0j"]
 [ext_resource type="Script" path="res://scenes/player/states/Walk.gd" id="9_1sbev"]
 [ext_resource type="Script" path="res://scenes/player/states/Dash.gd" id="10_hwjlr"]
+[ext_resource type="Script" path="res://scenes/player/Run.gd" id="11_eir7s"]
 [ext_resource type="Script" path="res://scenes/player/states/Jump.gd" id="11_t7c00"]
 [ext_resource type="Script" path="res://scenes/player/States/Attack.gd" id="13_guxhp"]
 [ext_resource type="Script" path="res://scenes/player/states/Block.gd" id="15_cffsh"]
@@ -1100,7 +1101,7 @@ turbulence_noise_scale = 3.842
 [sub_resource type="CircleShape2D" id="CircleShape2D_guer1"]
 radius = 29.1548
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input_component", "hurtbox_component", "hitbox_component", "stats_component", "animation")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input_component", "hurtbox_component", "hitbox_component", "stats_component", "animation") groups=["player"]]
 collision_mask = 14
 script = ExtResource("1_2ciwp")
 input_component = NodePath("InputComponent")
@@ -1122,7 +1123,7 @@ Speed = 1.37e+06
 JumpHeight = 980.38
 DashSpeed = 928.0
 Gravity = 56.56
-Friction = 3.0
+Friction = 7.0
 ui_component = NodePath("../CanvasLayer/PlayerUI")
 
 [node name="CollisionComponent" type="CollisionShape2D" parent="."]
@@ -1173,7 +1174,9 @@ script = ExtResource("8_fefk3")
 
 [node name="Walk" type="Node" parent="States"]
 script = ExtResource("9_1sbev")
-SPEED_LIM = 150.0
+
+[node name="Run" type="Node" parent="States"]
+script = ExtResource("11_eir7s")
 
 [node name="Dash" type="Node" parent="States"]
 script = ExtResource("10_hwjlr")
@@ -1223,7 +1226,17 @@ position = Vector2(14, 0)
 target_position = Vector2(0, 27)
 collision_mask = 2
 
+[node name="R2" type="RayCast2D" parent="."]
+position = Vector2(14, -27)
+target_position = Vector2(0, 27)
+collision_mask = 2
+
 [node name="L" type="RayCast2D" parent="."]
+target_position = Vector2(0, 27)
+collision_mask = 2
+
+[node name="L2" type="RayCast2D" parent="."]
+position = Vector2(0, -27)
 target_position = Vector2(0, 27)
 collision_mask = 2
 

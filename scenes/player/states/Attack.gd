@@ -12,13 +12,13 @@ func exit(host):
 	pass;
 
 func process(host, delta):
-	if sign(host.velocity.x) != sign(host.input_component.get_move_axis()):
+	if sign(host.velocity.x) != sign(host.input_component.get_move_axis(host)):
 		host.velocity.x *= -1;
 	
 	var return_state = null;
 	
-	if host.input_component and abs(host.input_component.get_move_axis()) > 0.01:
-		host.velocity.x += host.input_component.get_move_axis()*(sqrt(host.stats_component.Speed)/host.stats_component.Friction);
+	if host.input_component and abs(host.input_component.get_move_axis(host)) > 0.01:
+		host.velocity.x += host.input_component.get_move_axis(host)*(sqrt(host.stats_component.Speed)/host.stats_component.Friction);
 	
 	if abs(host.velocity.x) > SPEED_LIM:
 			var signs = sign(host.velocity.x);
@@ -36,7 +36,7 @@ func process(host, delta):
 			buffer_next_attack = false;
 			num = 1;
 	else:
-		if host.input_component and host.input_component.get_attack_input() and not buffer_next_attack:
+		if host.input_component and host.input_component.get_attack_input(host) and not buffer_next_attack:
 			buffer_next_attack = true;
 			num += 1;
 			if num > 4:

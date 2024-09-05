@@ -15,14 +15,14 @@ func update(host, delta):
 	
 	var return_state = null;
 	
-	if host.input_component and abs(host.input_component.get_move_axis()) > 0.01:
-		host.velocity.x += host.input_component.get_move_axis()*(sqrt(host.stats_component.Speed)/host.stats_component.Friction);
+	if host.input_component and abs(host.input_component.get_move_axis(host)) > 0.01:
+		host.velocity.x += host.input_component.get_move_axis(host)*(sqrt(host.stats_component.Speed)/host.stats_component.Friction);
 	
 	if abs(host.velocity.x) > SPEED_LIM:
 			var signs = sign(host.velocity.x);
 			host.velocity.x = SPEED_LIM*signs;
 	
-	if host.input_component and host.input_component.get_dash_input() and host.dash_timer >= host.States['dash'].DASH_COOLDOWN:
+	if host.input_component and host.input_component.get_dash_input(host) and host.dash_timer >= host.States['dash'].DASH_COOLDOWN:
 		return_state = 'dash';
 		host.screen_shake(1);
 	

@@ -12,6 +12,7 @@ extends CharacterBody2D
 @onready var States = {
 	'idle':   $States/Idle,
 	'walk':   $States/Walk,
+	'run':   $States/Run,
 	'jump':   $States/Jump,
 	'dash':   $States/Dash,
 	'attack': $States/Attack,
@@ -34,6 +35,8 @@ var target;
 @export var hitbox_component: HitboxComponent;
 @export var stats_component: StatsComponent;
 @export var animation: AnimationPlayer;
+
+@export var SPEED_LIM: float = 300.0;
 
 func _ready():
 	states_stack.push_front(States['idle']);
@@ -70,6 +73,9 @@ func _process(delta):
 
 func _change_state(new_state, vars := []):
 	state.exit(self);
+	
+	if new_state != null:
+		print("New state change: ", new_state);
 	
 	if new_state == 'previous':
 		states_stack.pop_front();

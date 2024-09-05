@@ -12,19 +12,25 @@ func update(host, delta):
 	var return_state = null;
 	var input = host.input_component;
 	
-	if input and abs(input.get_move_axis()) > 0.01:
-		host.velocity.x += input.get_move_axis()*(sqrt(host.stats_component.Speed)/host.stats_component.Friction);
+	if input and abs(input.get_move_axis(host)) > 0.01:
+		host.velocity.x += input.get_move_axis(host)*(sqrt(host.stats_component.Speed)/host.stats_component.Friction);
 		return_state = 'walk';
 	elif input:
 		host.velocity.x = 0.0;
-		
-	if input and input.get_jump_input() and host.is_on_floor():
+	
+	if abs(host.velocity.x) > host.SPEED_LIM:
+			if host.velocity.x >= 0:
+				host.velocity.x = host.SPEED_LIM;
+			else:
+				host.velocity.x = host.SPEED_LIM*-1;
+	
+	if input and input.get_jump_input(host) and host.is_on_floor():
 		return_state = 'jump';
 	
-	if input and input.get_parry_input():
+	if input and input.get_parry_input(host):
 		return_state = 'parry';
 	
-	if input and input.get_attack_input():
+	if input and input.get_attack_input(host):
 		return_state = 'attack';
 	
 	host.velocity.y += host.stats_component.Gravity;
