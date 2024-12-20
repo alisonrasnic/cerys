@@ -18,7 +18,7 @@ func _ready():
 
 func _on_area_entered(area):
 	pass;
-
+	
 func add_noise():
 	var rect = tiles.get_used_rect();
 	for x in range(0, rect.size.x):

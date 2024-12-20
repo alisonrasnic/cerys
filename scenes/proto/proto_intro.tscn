@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbn12ua4rlsbu"]
+
+[ext_resource type="Script" path="res://scenes/proto/proto_intro.gd" id="1_d7bft"]
+[ext_resource type="Texture2D" uid="uid://blx334sfhb8o5" path="res://assets/sprites/ui/proto_logo.png" id="1_ouhe2"]
+
+[node name="proto_intro" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d7bft")
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -178.0
+offset_right = 179.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 60
+
+[node name="Sprite2D" type="Sprite2D" parent="MarginContainer/VBoxContainer/MarginContainer"]
+position = Vector2(111.735, 53.035)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_ouhe2")
+offset = Vector2(-250, -70)
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(640, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Disclaimer: The current build has lighting bugs that cause flickering and flashes
+of lights. Consult your doctor if you have epilepsy <3
+Press enter"
+horizontal_alignment = 1
+vertical_alignment = 2
+autowrap_mode = 2

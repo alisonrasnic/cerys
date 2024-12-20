@@ -1,0 +1,70 @@
+[gd_scene load_steps=5 format=3 uid="uid://io2b0lrgu8o5"]
+
+[ext_resource type="Script" path="res://scenes/ui/note.gd" id="1_ydeuy"]
+[ext_resource type="Texture2D" uid="uid://c360f77wfa2ku" path="res://assets/sprites/ui/note.png" id="2_ee4gs"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2acd0"]
+texture = ExtResource("2_ee4gs")
+
+[sub_resource type="Theme" id="Theme_54ia3"]
+
+[node name="Note" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+script = ExtResource("1_ydeuy")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxTexture_2acd0")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_54ia3")
+alignment = 1
+
+[node name="Description" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(480, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.14902, 0.133333, 0, 1)
+text = "KAYO_NT1.0"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Text" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(480, 80)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.15, 0.135, 0, 1)
+text = "KAYO_NT1.1"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3

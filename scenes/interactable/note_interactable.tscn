@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://die4hx2q5ngtg"]
+
+[ext_resource type="Script" path="res://NoteInteractable.gd" id="1_rxfkc"]
+[ext_resource type="PackedScene" uid="uid://io2b0lrgu8o5" path="res://scenes/ui/note.tscn" id="2_djub4"]
+[ext_resource type="Texture2D" uid="uid://d4lpyfk67lwmu" path="res://assets/sprites/interactables/note.png" id="3_6samp"]
+[ext_resource type="PackedScene" uid="uid://kg4pyh5cjrlb" path="res://scenes/ui/interactable_dialog.tscn" id="4_sqwts"]
+[ext_resource type="Texture2D" uid="uid://qstjrdkv4uu" path="res://assets/sprites/player/light.png" id="5_m2skg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v0sye"]
+radius = 49.2544
+
+[node name="NoteInteractable" type="Node2D"]
+script = ExtResource("1_rxfkc")
+note = 5
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Note" parent="CanvasLayer" instance=ExtResource("2_djub4")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_6samp")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_v0sye")
+
+[node name="InteractableDialog" parent="." instance=ExtResource("4_sqwts")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.0
+offset_left = -41.315
+offset_top = -59.9
+offset_right = -41.315
+offset_bottom = -59.9
+grow_vertical = 1
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.3
+texture = ExtResource("5_m2skg")
+texture_scale = 0.1
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

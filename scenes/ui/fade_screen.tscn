@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bnsgdx2q2e830"]
+
+[ext_resource type="Shader" path="res://scenes/ui/fade_screen.gdshader" id="1_pmi2x"]
+[ext_resource type="Texture2D" uid="uid://dwvy0udr4aj4p" path="res://assets/shaders/dither_color_tex.png" id="2_myqe4"]
+[ext_resource type="Texture2D" uid="uid://bs5uvvxn6x1qw" path="res://assets/shaders/bayer2tile16.png" id="3_7roha"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hw3tl"]
+shader = ExtResource("1_pmi2x")
+shader_parameter/u_bit_depth = 3
+shader_parameter/u_contrast = 0.0
+shader_parameter/u_offset = 0.0
+shader_parameter/u_dither_size = 1
+shader_parameter/u_dither_tex = ExtResource("3_7roha")
+shader_parameter/u_color_tex = ExtResource("2_myqe4")
+
+[node name="FadeScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_hw3tl")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

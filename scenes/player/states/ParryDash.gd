@@ -57,7 +57,7 @@ func start_dash(host):
 
 func end_dash(host):
 	is_dashing = false;
-	host.collision_mask = 0b00000000_00000000_00000000_00001110;
+	host.collision_mask = 0b00000000_00000000_00000000_00011110;
 	host.get_node("DashParticles").emitting = false;
 	host.get_node("TargetArea").get_node("CollisionShape2D").disabled = false;
 	var enemy = host.target;

@@ -2,12 +2,13 @@ extends Node2D
 
 class_name StatsComponent;
 
-@export var Speed: float = 20.0;
+@export var Speed: float = 0.0;
 @export var JumpHeight: float = 36.0;
 @export var DashSpeed: float = 36.0;
 
 @export var Gravity: float = 14.14;
 @export var Friction: float = 0.96;
+@export var AirResistance: float = 0.5;
 
 @export var MaxHealth: float = 50;
 var Health = MaxHealth;

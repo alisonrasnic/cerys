@@ -1,0 +1,88 @@
+[gd_scene load_steps=3 format=3 uid="uid://uf688bxjbj4b"]
+
+[ext_resource type="Script" path="res://scenes/ui/options_menu.gd" id="1_gv5qe"]
+[ext_resource type="AudioStream" uid="uid://b1l5nx4xj3eto" path="res://assets/sfx/parry1.wav" id="2_6n1vo"]
+
+[node name="OptionsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gv5qe")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Windowsize" type="Button" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Window Size: 1920x1080"
+
+[node name="Fullscreen" type="Button" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+toggle_mode = true
+button_pressed = true
+text = "Fullscreen: Off"
+
+[node name="GameVolume" type="Button" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Game Volume:"
+alignment = 2
+
+[node name="GVolumeSlider" type="HSlider" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 50.0
+value = 50.0
+
+[node name="MusicVolume" type="Button" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Music Volume:"
+alignment = 2
+
+[node name="MVolumeSlider" type="HSlider" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+value = 100.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_6n1vo")
+autoplay = true
+bus = &"sfx"
+
+[connection signal="pressed" from="MarginContainer/GridContainer/Windowsize" to="." method="_on_windowsize_pressed"]
+[connection signal="toggled" from="MarginContainer/GridContainer/Fullscreen" to="." method="_on_fullscreen_toggled"]
+[connection signal="value_changed" from="MarginContainer/GridContainer/GVolumeSlider" to="." method="_on_g_volume_slider_value_changed"]

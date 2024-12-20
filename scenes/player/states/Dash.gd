@@ -7,20 +7,26 @@ var frame = 0;
 var max_frames = 8;
 
 func initialize(host, vars):
+	var rand_pitch = clampf(randf()+0.4, 0.9, 1.3);
+	host.get_node("sfx/dash").pitch_scale = rand_pitch;
+	host.get_node("sfx/dash").play();
 	host.dash_timer = 0.0;
 	host.velocity.y = 0.0;
-	if host.facing == 'r':
+	if host.facing != '_l':
 		host.velocity.x = DASH_DIST/max_frames;		
 	else:
-		host.velocity.x = -DASH_DIST/max_frames;		
-	host.collision_mask = 0b00000000_00000000_00000000_00001110;
-	host.animation.play("slash");
+		host.velocity.x = -DASH_DIST/max_frames;
+		if host.get_node("L").is_colliding():
+			if host.get_node("L2").is_colliding():
+				pass;
+	
+	host.collision_mask = 0b00000000_00000000_00000000_00011110;
 
 func enter(host):
 	pass;
 
 func exit(host):
-	pass;
+	host.velocity.y = 0.1;
 
 func update(host, delta):
 	
@@ -39,21 +45,26 @@ func update(host, delta):
 		if host.input_component and abs(host.input_component.get_move_axis(host)) >= 0.01 and host.input_component.get_sprint_input(host):
 			return_state = 'run';
 		elif abs(host.input_component.get_move_axis(host)) >= 0.01:
-			host.velocity.x = 0;
+			pass;
 	
 	return return_state;
 
 func process(host, delta):
-	pass;
+	if host.input_component and host.input_component.get_attack_input(host):
+		host.animation.play("slash");
 
 func check_raycast_step(host, delta):
 	if not host.is_on_floor():
 		return;
 	
 	if host.get_node("R").is_colliding():
+		if host.get_node("R2").is_colliding():
+			return;
 		host.position.x += 1;
 		host.position.y -= 18;
 	elif host.get_node("L").is_colliding():
+		if host.get_node("L2").is_colliding():
+			return;
 		host.position.x -= 1;
 		host.position.y -= 18;
 

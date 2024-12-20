@@ -69,9 +69,13 @@ libraries = {
 
 [node name="DashDeath" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_iy6fu")
+volume_db = -15.928
+bus = &"sfx"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(4, 7)
 scale = Vector2(2, 2)
 texture = ExtResource("5_fok7e")
 hframes = 6
+
+[connection signal="area_entered" from="HitboxComponent" to="." method="_on_hitbox_component_area_entered"]

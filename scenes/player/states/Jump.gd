@@ -1,6 +1,8 @@
 extends Node
 
-const SPEED_LIM: float = 200.0;
+const SPEED_LIM: float = 500.0;
+
+var dampened = false;
 
 func initialize(host, vars):
 	host.velocity.y -= host.stats_component.JumpHeight; 
@@ -9,18 +11,31 @@ func enter(host):
 	pass;
 
 func exit(host):
-	pass;
+	dampened = false;
 
 func update(host, delta):
 	
 	var return_state = null;
 	
 	if host.input_component and abs(host.input_component.get_move_axis(host)) > 0.01:
-		host.velocity.x += host.input_component.get_move_axis(host)*(sqrt(host.stats_component.Speed)/host.stats_component.Friction);
+		host.velocity.x += host.input_component.get_move_axis(host)*host.stats_component.Speed;
 	
-	if abs(host.velocity.x) > SPEED_LIM:
-			var signs = sign(host.velocity.x);
-			host.velocity.x = SPEED_LIM*signs;
+	host.velocity.x /= host.stats_component.AirResistance;
+	#if (host.velocity.x < 0):
+		#host.velocity.x += host.stats_component.AirResistance;
+		#if host.velocity.x > 0:
+			#host.velocity.x = 0;
+	#elif (host.velocity.x > 0):
+		#host.velocity.x -= host.stats_component.AirResistance;
+		#if host.velocity.x < 0:
+			#host.velocity.x = 0;
+		
+	if abs(host.velocity.x) > host.RUN_LIM:
+		host.velocity.x = sign(host.velocity.x)*host.RUN_LIM;
+	
+	if not dampened and host.input_component and not host.input_component.get_jump_held(host):
+		host.velocity.y *= 0.59375;
+		dampened = true;
 	
 	if host.input_component and host.input_component.get_dash_input(host) and host.dash_timer >= host.States['dash'].DASH_COOLDOWN:
 		return_state = 'dash';
@@ -33,6 +48,7 @@ func update(host, delta):
 	host.move_and_slide();
 	
 	if host.is_on_floor_only():
+		host.just_landed = true;
 		return "previous";
 	else:
 		return return_state;

@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://b4ssaa5evi83w"]
+
+[ext_resource type="Script" path="res://scenes/enemies/tut_miniboss_projectile.gd" id="1_sw7a3"]
+[ext_resource type="PackedScene" uid="uid://c7sa23jiggh6b" path="res://scenes/components/hitbox_component.tscn" id="2_6ta68"]
+[ext_resource type="PackedScene" uid="uid://bay26s3414m85" path="res://scenes/components/hurtbox_component.tscn" id="3_6hls1"]
+[ext_resource type="PackedScene" uid="uid://cd7p4hxd27qal" path="res://scenes/components/stats_component.tscn" id="4_wete1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_331jd"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f81bl"]
+radius = 6.08276
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ggwxe"]
+radius = 10.0499
+
+[node name="Projectile" type="CharacterBody2D"]
+visible = false
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_sw7a3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_331jd")
+disabled = true
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -7.0
+offset_top = -7.0
+offset_right = 7.0
+offset_bottom = 7.0
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("stats_component") instance=ExtResource("2_6ta68")]
+stats_component = NodePath("../StatsComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_f81bl")
+
+[node name="HurtboxComponent" parent="." instance=ExtResource("3_6hls1")]
+collision_layer = 4
+Damage = 10.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("CircleShape2D_ggwxe")
+disabled = true
+
+[node name="StatsComponent" parent="." instance=ExtResource("4_wete1")]
+MaxHealth = 1.0
+Poise = 1.0

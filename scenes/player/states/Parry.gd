@@ -3,10 +3,10 @@ extends Node
 @export var parry_frame = false;
 
 func enter(host):
-	if host.facing == 'r':
-		host.animation.play("parry");
-	else:
+	if host.facing == '_l':
 		host.animation.play("parry_l");
+	else:
+		host.animation.play("parry");
 
 func initialize(host):
 	pass;
@@ -18,13 +18,11 @@ func update(host, delta):
 	var return_state = null;
 	var input = host.input_component;
 	
-	if input and input.get_block_input(host):
-		if host.animation.current_animation == "parry" and not host.animation.is_playing():
-			return_state = 'block';
-			host.animation.play("block");
+	if input and input.get_block_input(host) and not host.animation.is_playing():
+		return_state = 'block';
+		host.animation.play("block" + host.facing);
 	if input and not input.get_block_input(host):
 		if not host.animation.is_playing():
-			host.animation.play("RESET");
 			return_state = 'idle';
 	
 	host.move_and_slide();

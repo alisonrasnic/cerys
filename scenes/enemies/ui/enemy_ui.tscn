@@ -1,14 +1,28 @@
-[gd_scene load_steps=4 format=3 uid="uid://dn2t31nyhu3ac"]
+[gd_scene load_steps=5 format=3 uid="uid://dn2t31nyhu3ac"]
 
 [ext_resource type="Script" path="res://scenes/enemies/ui/enemy_ui.gd" id="1_7qlk4"]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_cki8e"]
+light_mode = 1
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bkvwg"]
-bg_color = Color(0.31, 0.2356, 0.2356, 1)
+bg_color = Color(0.133333, 0.12549, 0.203922, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.98, 0.98, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y3m23"]
-bg_color = Color(1, 0.35, 0.35, 1)
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.133333, 0.12549, 0.203922, 1)
 
 [node name="EnemyUI" type="Control" node_paths=PackedStringArray("progress_bar")]
+material = SubResource("CanvasItemMaterial_cki8e")
 layout_mode = 3
 anchors_preset = 5
 anchor_left = 0.5
@@ -18,10 +32,12 @@ script = ExtResource("1_7qlk4")
 progress_bar = NodePath("ProgressBar")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
+light_mask = 0
+use_parent_material = true
 layout_mode = 0
 offset_left = -19.0
 offset_right = 19.0
-offset_bottom = 2.0
+offset_bottom = 4.0
 theme_override_styles/background = SubResource("StyleBoxFlat_bkvwg")
 theme_override_styles/fill = SubResource("StyleBoxFlat_y3m23")
 value = 100.0
