@@ -10,7 +10,7 @@ func enter(host):
 	host.animation.play("slash" + host.facing);		
 
 func exit(host):
-	pass;
+	buffer_next_attack = false;
 
 func process(host, delta):
 	if sign(host.velocity.x) != sign(host.input_component.get_move_axis(host)):
@@ -19,11 +19,12 @@ func process(host, delta):
 	var return_state = null;
 	
 	if host.input_component and abs(host.input_component.get_move_axis(host)) > 0.01:
-		host.velocity.x += host.input_component.get_move_axis(host)*(sqrt(host.stats_component.Speed)/host.stats_component.Friction);
+		host.velocity.x += host.input_component.get_move_axis(host)*(host.stats_component.Speed);
 	
-	if abs(host.velocity.x) > SPEED_LIM:
-		var signs = sign(host.velocity.x);
-		host.velocity.x = SPEED_LIM*signs;
+	host.velocity.x /= host.stats_component.Friction;
+	#if abs(host.velocity.x) > SPEED_LIM:
+		#var signs = sign(host.velocity.x);
+		#host.velocity.x = SPEED_LIM*signs;
 	
 	if not host.animation.is_playing():
 		if buffer_next_attack:
@@ -38,7 +39,10 @@ func process(host, delta):
 				host.animation.play("slash" + anim_post + host.facing);
 			buffer_next_attack = false;
 		else:
-			return_state = 'idle';
+			if host.input_component and host.input_component.get_sprint_input(host):
+				return_state = 'run';
+			else:
+				return_state = 'idle';
 			buffer_next_attack = false;
 			num = 1;
 	else:

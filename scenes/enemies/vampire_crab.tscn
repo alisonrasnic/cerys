@@ -1,0 +1,95 @@
+[gd_scene load_steps=14 format=3 uid="uid://boman2wkqmdv8"]
+
+[ext_resource type="Script" path="res://scenes/enemies/vampire_crab.gd" id="1_gwics"]
+[ext_resource type="Texture2D" uid="uid://brcupa261fnrr" path="res://assets/sprites/entities/enemies/vampire_crab.png" id="1_ll58k"]
+[ext_resource type="PackedScene" uid="uid://drvbcakpp4jy1" path="res://scenes/components/actor_component.tscn" id="2_xhlks"]
+[ext_resource type="Texture2D" uid="uid://ck2cfyaqdsxeb" path="res://assets/sprites/entities/enemies/vampire_crab_gore.png" id="4_r8h0e"]
+[ext_resource type="PackedScene" uid="uid://bydp8lwiejuj1" path="res://scenes/components/gore_component.tscn" id="4_w2c6o"]
+[ext_resource type="PackedScene" uid="uid://c7sa23jiggh6b" path="res://scenes/components/hitbox_component.tscn" id="5_5tvtc"]
+[ext_resource type="PackedScene" uid="uid://bay26s3414m85" path="res://scenes/components/hurtbox_component.tscn" id="6_nbmyb"]
+[ext_resource type="PackedScene" uid="uid://cd7p4hxd27qal" path="res://scenes/components/stats_component.tscn" id="7_0wbyp"]
+[ext_resource type="PackedScene" uid="uid://dn2t31nyhu3ac" path="res://scenes/enemies/ui/enemy_ui.tscn" id="8_85wfc"]
+[ext_resource type="PackedScene" uid="uid://bqoybyhek3l7q" path="res://scenes/components/input_component.tscn" id="9_1p5ov"]
+[ext_resource type="Script" path="res://scenes/components/ais/VampireCrabAIComponent.gd" id="10_i0w2t"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qg2qa"]
+radius = 12.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l8csb"]
+radius = 29.0172
+
+[node name="VampireCrab" type="CharacterBody2D" node_paths=PackedStringArray("input_component", "stats_component")]
+script = ExtResource("1_gwics")
+input_component = NodePath("InputComponent")
+stats_component = NodePath("StatsComponent")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ll58k")
+
+[node name="Actor" parent="." node_paths=PackedStringArray("sprite", "gore_component", "hitbox_component") instance=ExtResource("2_xhlks")]
+sprite = NodePath("../Sprite2D")
+gore_component = NodePath("../GoreComponent")
+hitbox_component = NodePath("../HitboxComponent")
+
+[node name="GoreSprites" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="GoreSprites"]
+texture = ExtResource("4_r8h0e")
+vframes = 5
+
+[node name="Sprite2D2" type="Sprite2D" parent="GoreSprites"]
+texture = ExtResource("4_r8h0e")
+vframes = 5
+frame = 1
+
+[node name="Sprite2D3" type="Sprite2D" parent="GoreSprites"]
+texture = ExtResource("4_r8h0e")
+vframes = 5
+frame = 2
+
+[node name="Sprite2D4" type="Sprite2D" parent="GoreSprites"]
+texture = ExtResource("4_r8h0e")
+vframes = 5
+frame = 3
+
+[node name="Sprite2D5" type="Sprite2D" parent="GoreSprites"]
+texture = ExtResource("4_r8h0e")
+vframes = 5
+frame = 4
+
+[node name="GoreComponent" parent="." node_paths=PackedStringArray("Sprites", "stats_component") instance=ExtResource("4_w2c6o")]
+Sprites = NodePath("../GoreSprites")
+stats_component = NodePath("../StatsComponent")
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("stats_component", "ignore_hurtbox") instance=ExtResource("5_5tvtc")]
+stats_component = NodePath("../StatsComponent")
+ignore_hurtbox = NodePath("../HurtboxComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, -3)
+shape = SubResource("CircleShape2D_qg2qa")
+
+[node name="HurtboxComponent" parent="." instance=ExtResource("6_nbmyb")]
+collision_layer = 4
+Damage = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(0, -3)
+shape = SubResource("CircleShape2D_l8csb")
+
+[node name="StatsComponent" parent="." node_paths=PackedStringArray("ui_component", "actor") instance=ExtResource("7_0wbyp")]
+Speed = 60.0
+Gravity = 0.1
+MaxHealth = 5.0
+Poise = 100.0
+ui_component = NodePath("../EnemyUI")
+actor = NodePath("../Actor")
+
+[node name="EnemyUI" parent="." instance=ExtResource("8_85wfc")]
+offset_top = -20.0
+offset_bottom = -20.0
+
+[node name="InputComponent" parent="." instance=ExtResource("9_1p5ov")]
+script = ExtResource("10_i0w2t")
+aggro_distance = 350.0
+passive_distance = 250.0

@@ -6,3 +6,10 @@
 script = ExtResource("1_8f20f")
 
 [node name="Entrances" type="Node" parent="."]
+
+[node name="Bug" type="Label" parent="."]
+offset_left = 257.0
+offset_top = -40.0
+offset_right = 373.0
+offset_bottom = 43.0
+text = "This is a bug"

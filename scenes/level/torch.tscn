@@ -1,13 +1,88 @@
-[gd_scene load_steps=3 format=3 uid="uid://b1fcly2vnj75s"]
+[gd_scene load_steps=10 format=3 uid="uid://b1fcly2vnj75s"]
 
-[ext_resource type="Texture2D" uid="uid://b5iacb243fwfl" path="res://assets/sprites/tilemap/torch.png" id="1_524pc"]
-[ext_resource type="Texture2D" uid="uid://qstjrdkv4uu" path="res://assets/sprites/player/light.png" id="2_61on3"]
+[ext_resource type="Texture2D" uid="uid://c54dt1cw41ig" path="res://assets/sprites/object/torch..png" id="1_41tbu"]
+[ext_resource type="Script" path="res://scenes/level/torch.gd" id="2_3uslp"]
+[ext_resource type="AudioStream" uid="uid://cqv56m2pcy30v" path="res://design/fl studio/torch_burning1.ogg" id="4_xbj0k"]
+[ext_resource type="Texture2D" uid="uid://gupialr5ot7" path="res://assets/sprites/pixel.png" id="5_lmsi7"]
+[ext_resource type="PackedScene" uid="uid://dcgvycjq37s8s" path="res://scenes/components/flicker_light_2d.tscn" id="5_ts68w"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0n7i3"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 14.157
+initial_velocity_max = 112.35
+gravity = Vector3(0, -98, 0)
+linear_accel_min = -100.0
+linear_accel_max = 100.0
+turbulence_noise_strength = 20.0
+turbulence_noise_scale = 8.263
+turbulence_noise_speed_random = 0.24
+turbulence_influence_min = 0.0
+turbulence_influence_max = 0.774
+
+[sub_resource type="Animation" id="Animation_ycbrx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_q2njf"]
+resource_name = "_"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3ffwv"]
+_data = {
+"RESET": SubResource("Animation_ycbrx"),
+"_": SubResource("Animation_q2njf")
+}
 
 [node name="Torch" type="Sprite2D"]
-texture = ExtResource("1_524pc")
+z_index = -1
+texture = ExtResource("1_41tbu")
+hframes = 4
+script = ExtResource("2_3uslp")
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(0, -1)
-blend_mode = 2
-shadow_enabled = true
-texture = ExtResource("2_61on3")
+[node name="Burn" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_xbj0k")
+volume_db = 1.513
+pitch_scale = 1.32
+autoplay = true
+max_distance = 200.0
+bus = &"sfx"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+show_behind_parent = true
+position = Vector2(-1, 4)
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_0n7i3")
+texture = ExtResource("5_lmsi7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3ffwv")
+}
+autoplay = "_"
+
+[node name="FlickerLight2D" parent="." instance=ExtResource("5_ts68w")]

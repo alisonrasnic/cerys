@@ -2,10 +2,11 @@ extends Node2D
 
 var zoom = 0.07;
 
-const SPEED = 3.0;
+var SPEED = 3.0;
 
 func _ready():
 	randomize();
+
 	for idx in range(0, len($RoomGenerator.Rooms.get_children())):
 		var room_node = $RoomGenerator.Rooms.get_children()[idx]
 		var label = Label.new();
@@ -14,8 +15,15 @@ func _ready():
 		label.set("theme_override_font_sizes/font_size", 256);
 		label.set("theme_override_colors/font_color", Color.RED);
 		$RoomLabels.add_child(label);
+	
+	$RoomGenerator.process_mode = Node.PROCESS_MODE_DISABLED;
 
 func _physics_process(delta):
+	if Input.is_action_pressed("dash"):
+		SPEED = 15.0;
+	else:
+		SPEED = 3.0;
+
 	if Input.is_action_pressed("left"):
 		$Camera2D.offset.x -= SPEED*(1/zoom);
 	elif Input.is_action_pressed("right"):

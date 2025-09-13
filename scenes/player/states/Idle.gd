@@ -8,6 +8,9 @@ func exit(host):
 
 func update(host, delta):
 	
+	if host.stats_component:
+		host.stats_component.add_stam(0.15);
+	
 	var return_state = null;
 	var input = host.input_component;
 	

@@ -27,6 +27,7 @@ texture = ExtResource("3_6samp")
 shape = SubResource("CircleShape2D_v0sye")
 
 [node name="InteractableDialog" parent="." instance=ExtResource("4_sqwts")]
+visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -38,7 +39,6 @@ offset_bottom = -59.9
 grow_vertical = 1
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-energy = 0.3
 texture = ExtResource("5_m2skg")
 texture_scale = 0.1
 

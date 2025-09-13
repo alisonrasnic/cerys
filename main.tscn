@@ -1,19 +1,79 @@
-[gd_scene load_steps=5 format=3 uid="uid://b1g6l1f4ltyeb"]
+[gd_scene load_steps=7 format=3 uid="uid://b1g6l1f4ltyeb"]
 
-[ext_resource type="PackedScene" uid="uid://bxsbbuk2ou42g" path="res://scenes/player/player.tscn" id="1_8nbac"]
-[ext_resource type="Script" path="res://main.gd" id="1_t0hq1"]
-[ext_resource type="PackedScene" uid="uid://cc7dgure840il" path="res://scenes/proto/proto_pause_menu.tscn" id="4_77b22"]
-[ext_resource type="PackedScene" uid="uid://deie110vanf5d" path="res://scenes/level/tutorial.tscn" id="4_84fop"]
+[ext_resource type="PackedScene" uid="uid://g4d4x0jdblda" path="res://scenes/ui/menus/MainMenu.tscn" id="1_axwxf"]
+[ext_resource type="Script" path="res://main.gd" id="1_ckrb1"]
 
-[node name="Main" type="Node2D"]
-process_mode = 3
-script = ExtResource("1_t0hq1")
+[sub_resource type="Animation" id="Animation_luyox"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/FadeBlack:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
 
-[node name="Player" parent="." instance=ExtResource("1_8nbac")]
-process_mode = 1
-position = Vector2(-1, -11)
+[sub_resource type="Animation" id="Animation_t57in"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/FadeBlack:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
 
-[node name="proto_PauseMenu" parent="." instance=ExtResource("4_77b22")]
+[sub_resource type="Animation" id="Animation_d8d3y"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/FadeBlack:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
 
-[node name="Tutorial" parent="." instance=ExtResource("4_84fop")]
-position = Vector2(-171, -424)
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ck1km"]
+_data = {
+"RESET": SubResource("Animation_luyox"),
+"fade_in": SubResource("Animation_t57in"),
+"fade_out": SubResource("Animation_d8d3y")
+}
+
+[node name="main" type="Node"]
+script = ExtResource("1_ckrb1")
+
+[node name="MainMenu" parent="." instance=ExtResource("1_axwxf")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="FadeBlack" type="ColorRect" parent="CanvasLayer"]
+z_index = 9
+z_as_relative = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ck1km")
+}

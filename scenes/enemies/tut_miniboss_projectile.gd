@@ -34,5 +34,8 @@ func _process(delta):
 		
 		move_and_slide();
 
+func parry_receive():
+	reset();
+
 func stun():
 	pass;

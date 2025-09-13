@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://uf688bxjbj4b"]
 
 [ext_resource type="Script" path="res://scenes/ui/options_menu.gd" id="1_gv5qe"]
-[ext_resource type="AudioStream" uid="uid://b1l5nx4xj3eto" path="res://assets/sfx/parry1.wav" id="2_6n1vo"]
+[ext_resource type="PackedScene" uid="uid://g38toynq8ray" path="res://scenes/ui/components/binding_button.tscn" id="2_5btuy"]
 
-[node name="OptionsMenu" type="Control"]
+[node name="OptionsMenu" type="Control" node_paths=PackedStringArray("window_size_selector", "scale_selector", "fullscreen_toggler")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,18 +11,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_gv5qe")
+window_size_selector = NodePath("MarginContainer/TabContainer/Video/ScrollContainer/GridContainer/WindowSize")
+scale_selector = NodePath("MarginContainer/TabContainer/Video/ScrollContainer/GridContainer/ScalePicker")
+fullscreen_toggler = NodePath("MarginContainer/TabContainer/Video/ScrollContainer/GridContainer/Fullscreen")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -24.0
-offset_right = 24.0
-offset_bottom = 24.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 20
@@ -30,59 +27,138 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="TabContainer" type="TabContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+[node name="Game" type="MarginContainer" parent="MarginContainer/TabContainer"]
 layout_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/TabContainer/Game"]
 layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/TabContainer/Game/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 10
 columns = 2
 
-[node name="Windowsize" type="Button" parent="MarginContainer/GridContainer"]
+[node name="MainMenuButton" type="Button" parent="MarginContainer/TabContainer/Game/ScrollContainer/GridContainer"]
 layout_mode = 2
-text = "Window Size: 1920x1080"
+text = "Exit to Main Menu"
 
-[node name="Fullscreen" type="Button" parent="MarginContainer/GridContainer"]
+[node name="ExitButton" type="Button" parent="MarginContainer/TabContainer/Game/ScrollContainer/GridContainer"]
 layout_mode = 2
-toggle_mode = true
-button_pressed = true
-text = "Fullscreen: Off"
+text = "Close Game"
 
-[node name="GameVolume" type="Button" parent="MarginContainer/GridContainer"]
+[node name="Video" type="MarginContainer" parent="MarginContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/TabContainer/Video"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/TabContainer/Video/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+columns = 2
+
+[node name="Label" type="Label" parent="MarginContainer/TabContainer/Video/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Window size:"
+horizontal_alignment = 2
+
+[node name="WindowSize" type="OptionButton" parent="MarginContainer/TabContainer/Video/ScrollContainer/GridContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label2" type="Label" parent="MarginContainer/TabContainer/Video/ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Fullscreen" type="CheckButton" parent="MarginContainer/TabContainer/Video/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Fullscreen"
+
+[node name="Label3" type="Label" parent="MarginContainer/TabContainer/Video/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Scale:"
+horizontal_alignment = 2
+
+[node name="ScalePicker" type="OptionButton" parent="MarginContainer/TabContainer/Video/ScrollContainer/GridContainer"]
+layout_mode = 2
+alignment = 2
+item_count = 4
+selected = 1
+popup/item_0/text = "1x"
+popup/item_0/id = 0
+popup/item_1/text = "2x (default)"
+popup/item_1/id = 1
+popup/item_2/text = "3x"
+popup/item_2/id = 2
+popup/item_3/text = "4x"
+popup/item_3/id = 3
+
+[node name="Audio" type="MarginContainer" parent="MarginContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="ScrollContainer2" type="ScrollContainer" parent="MarginContainer/TabContainer/Audio"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/TabContainer/Audio/ScrollContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 2
+
+[node name="GameVolume" type="Button" parent="MarginContainer/TabContainer/Audio/ScrollContainer2/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 text = "Game Volume:"
 alignment = 2
 
-[node name="GVolumeSlider" type="HSlider" parent="MarginContainer/GridContainer"]
+[node name="GVolumeSlider" type="HSlider" parent="MarginContainer/TabContainer/Audio/ScrollContainer2/GridContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 4
 max_value = 50.0
 value = 50.0
 
-[node name="MusicVolume" type="Button" parent="MarginContainer/GridContainer"]
+[node name="MusicVolume" type="Button" parent="MarginContainer/TabContainer/Audio/ScrollContainer2/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 text = "Music Volume:"
 alignment = 2
 
-[node name="MVolumeSlider" type="HSlider" parent="MarginContainer/GridContainer"]
+[node name="MVolumeSlider" type="HSlider" parent="MarginContainer/TabContainer/Audio/ScrollContainer2/GridContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 value = 100.0
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_6n1vo")
-autoplay = true
-bus = &"sfx"
+[node name="Controls" type="MarginContainer" parent="MarginContainer/TabContainer"]
+visible = false
+layout_mode = 2
 
-[connection signal="pressed" from="MarginContainer/GridContainer/Windowsize" to="." method="_on_windowsize_pressed"]
-[connection signal="toggled" from="MarginContainer/GridContainer/Fullscreen" to="." method="_on_fullscreen_toggled"]
-[connection signal="value_changed" from="MarginContainer/GridContainer/GVolumeSlider" to="." method="_on_g_volume_slider_value_changed"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/TabContainer/Controls"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/TabContainer/Controls/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+columns = 2
+
+[node name="Jump" type="Label" parent="MarginContainer/TabContainer/Controls/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Jump:"
+horizontal_alignment = 2
+
+[node name="JumpBind" parent="MarginContainer/TabContainer/Controls/MarginContainer/GridContainer" instance=ExtResource("2_5btuy")]
+layout_mode = 2
+
+[connection signal="pressed" from="MarginContainer/TabContainer/Game/ScrollContainer/GridContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="item_selected" from="MarginContainer/TabContainer/Video/ScrollContainer/GridContainer/WindowSize" to="." method="_on_window_size_item_selected"]
+[connection signal="toggled" from="MarginContainer/TabContainer/Video/ScrollContainer/GridContainer/Fullscreen" to="." method="_on_fullscreen_toggled"]
+[connection signal="item_selected" from="MarginContainer/TabContainer/Video/ScrollContainer/GridContainer/ScalePicker" to="." method="_on_scale_picker_item_selected"]
+[connection signal="value_changed" from="MarginContainer/TabContainer/Audio/ScrollContainer2/GridContainer/GVolumeSlider" to="." method="_on_g_volume_slider_value_changed"]
+[connection signal="binding_changed" from="MarginContainer/TabContainer/Controls/MarginContainer/GridContainer/JumpBind" to="." method="_on_jump_bind_binding_changed"]

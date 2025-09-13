@@ -13,10 +13,17 @@ func exit(host):
 
 func update(host, delta):
 	
+	if host.stats_component:
+		host.stats_component.add_stam(0.1);
+	
 	var stone_footstep = host.get_node("sfx/footstep_stone");
-	if host.is_on_floor() and not stone_footstep.playing:
-		stone_footstep.play();
+	if host.is_on_floor():
+		if not stone_footstep.playing:
+			stone_footstep.play();
 	elif not host.is_on_floor():
+		if host.stats_component:
+			host.stats_component.CoyoteTimer -= delta;
+			print(host.stats_component.CoyoteTimer);
 		stone_footstep.stop();
 	
 	#if sign(host.velocity.x) != sign(host.input_component.get_move_axis(host)):
@@ -44,8 +51,11 @@ func update(host, delta):
 		
 	if host.input_component and host.input_component.get_jump_input(host) and host.is_on_floor():
 		return_state = 'jump';
+	elif host.input_component and host.stats_component and host.stats_component.CoyoteTimer > 0 and host.input_component.get_jump_input(host):
+		return_state = 'jump';
 	
-	if host.input_component and host.input_component.get_dash_input(host):
+	if host.input_component and host.input_component.get_dash_input(host) and host.stats_component and not host.stats_component.is_exhaust() and host.stats_component.Stamina >= host.stats_component.DashStamAmt:
+		host.stats_component.add_stam(-host.stats_component.DashStamAmt);
 		
 		return_state = 'dash';
 		

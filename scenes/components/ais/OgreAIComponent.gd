@@ -8,13 +8,15 @@ func get_move_axis(host):
 	if pos != null:
 		var x_distance = abs(global_position.x+64 - pos.x);
 		if (x_distance < passive_distance or (aggro and x_distance < aggro_distance)) and x_distance >= 64.0:
-			aggro = true;
+			set_aggro(true);
 			if pos.x > host.global_position.x:
 				host.facing = '_l';
 				return 1;
 			elif pos.x < host.global_position.x:
 				host.facing = '';
 				return -1;
+		else:
+			set_aggro(false);
 		
 	return 0;
 

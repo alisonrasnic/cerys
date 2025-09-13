@@ -37,8 +37,8 @@ func _process(delta):
 	
 	if input_component is AIComponent:
 		var ai = input_component as AIComponent;
-		var player = get_tree().get_nodes_in_group('player')[0];
-		if player:
+		if get_tree().get_nodes_in_group('player'):
+			var player = get_tree().get_nodes_in_group('player')[0];
 			ai.update_player_position(player.global_position + Vector2(2, -4));
 			if ai.get_move_axis(self) != 0 and stats_component:
 				velocity.x = stats_component.Speed*input_component.get_move_axis(self);
@@ -65,7 +65,7 @@ func _process(delta):
 							attack_timer -= 2.5;
 		
 		if velocity.x == 0 and velocity.y == 0:
-			ai.aggro = false;
+			ai.set_aggro(false);
 		
 	
 	move_and_slide();

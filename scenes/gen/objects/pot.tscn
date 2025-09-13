@@ -1,0 +1,95 @@
+[gd_scene load_steps=15 format=3 uid="uid://c4lhs1u6k7pym"]
+
+[ext_resource type="PackedScene" uid="uid://c7sa23jiggh6b" path="res://scenes/components/hitbox_component.tscn" id="1_v320n"]
+[ext_resource type="PackedScene" uid="uid://cd7p4hxd27qal" path="res://scenes/components/stats_component.tscn" id="2_ar3xc"]
+[ext_resource type="PackedScene" uid="uid://dugsr48bg5rxh" path="res://scenes/components/audio/round_robin_audio_2d.tscn" id="3_at5nx"]
+[ext_resource type="AudioStream" uid="uid://cypg4wp5syg7i" path="res://assets/sfx/objects/glass_breaking - 1.wav" id="4_lb28e"]
+[ext_resource type="AudioStream" uid="uid://ddbgh1gn8oet5" path="res://assets/sfx/objects/glass_breaking - 2.wav" id="5_swmpo"]
+[ext_resource type="AudioStream" uid="uid://bqjki4km73tb5" path="res://assets/sfx/objects/glass_breaking - 3.wav" id="6_j1iyv"]
+[ext_resource type="AudioStream" uid="uid://bj4uxg87a7161" path="res://assets/sfx/objects/glass_breaking - 4.wav" id="7_lpn0x"]
+[ext_resource type="AudioStream" uid="uid://8643dhms7n8f" path="res://assets/sfx/objects/glass_breaking - 5.wav" id="8_58wtv"]
+[ext_resource type="AudioStream" uid="uid://df77s028ltnv0" path="res://assets/sfx/objects/glass_breaking - 6.wav" id="9_2qh77"]
+[ext_resource type="PackedScene" uid="uid://drvbcakpp4jy1" path="res://scenes/components/actor_component.tscn" id="10_om5qd"]
+[ext_resource type="Texture2D" uid="uid://c8bq57ldoo8tl" path="res://assets/sprites/object/pot.png" id="11_wlrsp"]
+[ext_resource type="PackedScene" uid="uid://bydp8lwiejuj1" path="res://scenes/components/gore_component.tscn" id="12_lf83j"]
+[ext_resource type="Texture2D" uid="uid://bjjhhbp3fwgdg" path="res://assets/sprites/object/pot_break.png" id="13_xxuo8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7qdm0"]
+radius = 13.0
+
+[node name="Pot" type="Node2D"]
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("stats_component", "splat_sfx") instance=ExtResource("1_v320n")]
+dash_die = true
+stats_component = NodePath("../StatsComponent")
+splat_sfx = NodePath("../RoundRobinAudio2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_7qdm0")
+
+[node name="StatsComponent" parent="." node_paths=PackedStringArray("actor") instance=ExtResource("2_ar3xc")]
+Gravity = 0.07
+MaxHealth = 1.0
+Poise = 1e+08
+MaxStamina = 1.0
+actor = NodePath("../Actor")
+
+[node name="RoundRobinAudio2D" parent="." instance=ExtResource("3_at5nx")]
+streams = [ExtResource("4_lb28e"), ExtResource("5_swmpo"), ExtResource("6_j1iyv"), ExtResource("7_lpn0x"), ExtResource("8_58wtv"), ExtResource("9_2qh77")]
+
+[node name="Actor" parent="." node_paths=PackedStringArray("audio_component", "sprite", "gore_component", "hitbox_component") instance=ExtResource("10_om5qd")]
+audio_component = NodePath("../RoundRobinAudio2D")
+sprite = NodePath("../Sprite2D")
+gore_component = NodePath("../GoreComponent")
+hitbox_component = NodePath("../HitboxComponent")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -3)
+texture = ExtResource("11_wlrsp")
+
+[node name="GoreSprites" type="Node2D" parent="."]
+
+[node name="1" type="Sprite2D" parent="GoreSprites"]
+position = Vector2(0, -3)
+texture = ExtResource("13_xxuo8")
+vframes = 7
+
+[node name="2" type="Sprite2D" parent="GoreSprites"]
+position = Vector2(0, -3)
+texture = ExtResource("13_xxuo8")
+vframes = 7
+frame = 1
+
+[node name="3" type="Sprite2D" parent="GoreSprites"]
+position = Vector2(0, -3)
+texture = ExtResource("13_xxuo8")
+vframes = 7
+frame = 2
+
+[node name="4" type="Sprite2D" parent="GoreSprites"]
+position = Vector2(0, -3)
+texture = ExtResource("13_xxuo8")
+vframes = 7
+frame = 3
+
+[node name="5" type="Sprite2D" parent="GoreSprites"]
+position = Vector2(0, -3)
+texture = ExtResource("13_xxuo8")
+vframes = 7
+frame = 4
+
+[node name="6" type="Sprite2D" parent="GoreSprites"]
+position = Vector2(0, -3)
+texture = ExtResource("13_xxuo8")
+vframes = 7
+frame = 5
+
+[node name="7" type="Sprite2D" parent="GoreSprites"]
+position = Vector2(0, -3)
+texture = ExtResource("13_xxuo8")
+vframes = 7
+frame = 6
+
+[node name="GoreComponent" parent="." node_paths=PackedStringArray("Sprites", "stats_component") instance=ExtResource("12_lf83j")]
+Sprites = NodePath("../GoreSprites")
+stats_component = NodePath("../StatsComponent")

@@ -6,10 +6,13 @@
 [node name="RoomGenViewer" type="Node2D"]
 script = ExtResource("1_t3y73")
 
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+height = 0.42
+
 [node name="RoomGenerator" parent="." instance=ExtResource("1_x8csi")]
-rooms = 100
 
 [node name="Camera2D" type="Camera2D" parent="."]
+process_mode = 3
 anchor_mode = 0
 zoom = Vector2(0.07, 0.07)
 

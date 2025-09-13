@@ -22,6 +22,9 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="."]
+process_mode = 4
+visible = false
+show_behind_parent = true
 texture_repeat = 2
 material = SubResource("ShaderMaterial_hw3tl")
 layout_mode = 1

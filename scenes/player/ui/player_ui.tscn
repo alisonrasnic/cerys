@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cfhm1hy0x0a6x"]
+[gd_scene load_steps=6 format=3 uid="uid://cfhm1hy0x0a6x"]
 
 [ext_resource type="Script" path="res://scenes/enemies/ui/enemy_ui.gd" id="1_grbo7"]
 [ext_resource type="Texture2D" uid="uid://bva4hp38qyl64" path="res://assets/sprites/player/ui/heart.png" id="2_sgekc"]
+[ext_resource type="Texture2D" uid="uid://dnpgg4jto3fh2" path="res://assets/sprites/player/ui/stamina.png" id="3_w73eu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bkvwg"]
 bg_color = Color(0, 0, 0, 1)
@@ -19,11 +20,12 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0, 0, 0, 1)
 
-[node name="PlayerUI" type="Control" node_paths=PackedStringArray("progress_bar")]
+[node name="PlayerUI" type="Control" node_paths=PackedStringArray("progress_bar", "progress_bar_stam")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_grbo7")
 progress_bar = NodePath("MarginContainer/GridContainer/ProgressBar")
+progress_bar_stam = NodePath("MarginContainer/GridContainer/StamBar")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -57,3 +59,21 @@ size_flags_vertical = 6
 
 [node name="Sprite2D" type="Sprite2D" parent="MarginContainer/GridContainer/Control"]
 texture = ExtResource("2_sgekc")
+
+[node name="StamBar" type="ProgressBar" parent="MarginContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_bkvwg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_y3m23")
+value = 76.22
+show_percentage = false
+
+[node name="Control2" type="Control" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 6
+
+[node name="Sprite2D" type="Sprite2D" parent="MarginContainer/GridContainer/Control2"]
+texture = ExtResource("3_w73eu")

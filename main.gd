@@ -1,23 +1,18 @@
-extends Node2D
+extends Node
 
+# Called when the node enters the scene tree for the first time.
 func _ready():
-	randomize();
-	$Player.connect("reset_level", reset);
+	pass;
 
-func _input(event):
-	if not get_tree().paused:
-		if event is InputEventKey and event.ctrl_pressed and event.shift_pressed:
-			if event.keycode == KEY_R:
-				get_tree().reload_current_scene();
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
 
-		if event is InputEventKey and Input.is_action_just_pressed("pause", true) and not event.is_echo():
-			get_tree().paused = true;
-			$proto_PauseMenu.visible = true;
+func _exit_tree():
+	pass;
+	
+func fade_out():
+	$AnimationPlayer.play("fade_out");
 
-func reset():
-	if get_node("Room"):
-		print("HELLO ?!?!!?!");
-		$Player.global_position = get_node("Room/PlayerSpawn").global_position-$Player.get_node("Sprite2D").get_rect().size;
-	elif get_node("Tutorial"):
-		$Player.global_position = get_node("Tutorial/PlayerSpawn").global_position-$Player.get_node("Sprite2D").get_rect().size;
-
+func fade_in():
+	$AnimationPlayer.play("fade_in");

@@ -1,9 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://nswen17gcm0s"]
+[gd_scene load_steps=3 format=3 uid="uid://nswen17gcm0s"]
 
 [ext_resource type="Script" path="res://scenes/gen/room_generator.gd" id="1_e4vny"]
+[ext_resource type="AudioStream" uid="uid://v4dh2dd8meu0" path="res://design/fl studio/mpt_atmos.mp3" id="2_gllan"]
 
 [node name="RoomGenerator" type="Node2D" node_paths=PackedStringArray("Rooms")]
 script = ExtResource("1_e4vny")
 Rooms = NodePath("Rooms")
 
-[node name="Rooms" type="Node" parent="."]
+[node name="Rooms" type="Node2D" parent="."]
+
+[node name="atmos" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_gllan")
+volume_db = -29.982
+autoplay = true
+bus = &"mus"
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0, 0, 0, 1)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+editor_only = true

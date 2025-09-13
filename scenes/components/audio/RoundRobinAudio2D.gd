@@ -38,3 +38,6 @@ func _process(delta):
 
 func is_finished():
 	emit_signal("finished");
+	
+func done():
+	return not $AudioStreamPlayer2D.playing;

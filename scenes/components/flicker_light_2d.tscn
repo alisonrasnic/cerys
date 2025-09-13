@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcgvycjq37s8s"]
+
+[ext_resource type="Texture2D" uid="uid://qstjrdkv4uu" path="res://assets/sprites/player/light.png" id="1_us136"]
+[ext_resource type="Script" path="res://scenes/components/flicker_light_2d.gd" id="2_xdh48"]
+
+[node name="FlickerLight2D" type="PointLight2D"]
+shadow_enabled = true
+texture = ExtResource("1_us136")
+script = ExtResource("2_xdh48")
+FlickerTime = 0.1

@@ -1,6 +1,6 @@
 extends Node
 
-const DASH_DIST = 60.0*4;
+const DASH_DIST = 32*4;
 const DASH_COOLDOWN: float = 0.75;
 
 var frame = 0;
@@ -38,6 +38,9 @@ func update(host, delta):
 	host.move_and_collide((host.velocity/60)/delta);
 	frame += 1;
 	
+	if host.input_component and host.input_component.get_jump_input(host):
+		return_state = 'jump';
+	
 	if frame >= max_frames:
 		frame = 0;
 		return_state = 'previous';
@@ -46,6 +49,9 @@ func update(host, delta):
 			return_state = 'run';
 		elif abs(host.input_component.get_move_axis(host)) >= 0.01:
 			pass;
+	
+	if host.input_component and not host.input_component.get_sprint_input(host):
+		return_state = 'previous';
 	
 	return return_state;
 

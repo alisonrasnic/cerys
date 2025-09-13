@@ -53,6 +53,8 @@ func _ready():
 	states_stack[0] = $States/Idle;
 	state = states_stack[0];
 	_change_state('idle');
+	
+	stats_component.refill_health();
 
 func _physics_process(delta):
 	
@@ -62,8 +64,13 @@ func _physics_process(delta):
 	
 func _process(delta):
 	
-	if position.y > 6000:
-		reset();
+	if is_on_floor():
+		if stats_component:
+			stats_component.CoyoteTimer = stats_component.CoyoteTime;
+	
+	#if position.y > 6000:
+		#print("PLAYER FELL TO THEIR DEATH");
+		#reset();
 	
 	dash_timer += delta;
 	
@@ -78,7 +85,7 @@ func _process(delta):
 		
 	if stats_component:
 		if stats_component.is_dead():
-			emit_signal("reset_level");
+			print("PLAYER IS DEAD");
 			reset();
 	
 	if is_on_floor_only():
@@ -144,5 +151,3 @@ func stun():
 
 func get_width():
 	return $CollisionComponent.shape.get_rect().size.x;
-
-
