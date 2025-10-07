@@ -7,6 +7,10 @@ script = ExtResource("1_8f20f")
 
 [node name="Entrances" type="Node" parent="."]
 
+[node name="L" type="Node2D" parent="Entrances"]
+
+[node name="R" type="Node2D" parent="Entrances"]
+
 [node name="Bug" type="Label" parent="."]
 offset_left = 257.0
 offset_top = -40.0

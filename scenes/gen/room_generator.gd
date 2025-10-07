@@ -4,7 +4,7 @@ class_name RoomGenerator;
 
 const MAX_DESC_DIST: float = 1024.0;
 
-@export var rooms = 100;
+@export var rooms = 3;
 
 @export var Rooms: Node;
 
@@ -12,6 +12,8 @@ const MAX_DESC_DIST: float = 1024.0;
 @onready var PlatformingRooms = [preload("res://scenes/gen/rooms/LRDashRoom.tscn"), preload("res://scenes/gen/rooms/VertLRRoom.tscn"), preload("res://scenes/gen/rooms/LRPitfall.tscn"), preload("res://scenes/gen/rooms/LDownSplit1.tscn")];
 
 @onready var TutRoom = preload("res://scenes/gen/rooms/TutorialRoom.tscn")
+
+@onready var Room = preload("res://scenes/gen/room.tscn");
 
 var enemyParity = false;
 
@@ -42,13 +44,15 @@ func _ready():
 		var room_instant;
 		if true: #dist_sq_to_rod(curr_position) < MAX_DESC_DIST or dist_sq_to_rod(curr_position) >= MAX_DESC_DIST:
 			var which_room;
-			if enemyParity:
-				which_room = randi()%len(EnemyRooms);
-				room_instant = EnemyRooms[which_room].instantiate();
-			else:
-				which_room = randi()%len(PlatformingRooms);
-				room_instant = PlatformingRooms[which_room].instantiate();
-			enemyParity = not enemyParity;
+			#if enemyParity:
+				#which_room = randi()%len(EnemyRooms);
+				#room_instant = EnemyRooms[which_room].instantiate();
+			#else:
+				#which_room = randi()%len(PlatformingRooms);
+				#room_instant = PlatformingRooms[which_room].instantiate();
+			#enemyParity = not enemyParity;
+			
+			room_instant = Room.instantiate();
 			
 			if x != 0:
 				var previous_room = rooms_arr[x-1];
@@ -65,6 +69,7 @@ func _ready():
 				var right_pos2;
 				var left_pos2;
 				for pos in room_instant.get_entrance_positions():
+					print(pos);
 					if pos.name == "R":
 						right_pos2 = pos;
 					elif pos.name == "L":
@@ -77,6 +82,7 @@ func _ready():
 				#curr_position += right_pos.position;
 				#room_instant.position = curr_position;
 				
+				print("Previous room right entrance: ", right_pos1.position);
 				curr_position.x += right_pos1.position.x;
 				curr_position.y += right_pos1.position.y;
 				curr_position   -= left_pos2.position;
@@ -85,14 +91,6 @@ func _ready():
 				# i.e. we're going to have the R exit of the previous line up with the L exit of the next room
 		else:
 			room_instant = Room.new();
-			var tiles: Array[Vector2i] = [];
-			var width =  30;
-			var height = 10;
-			
-			for z in range(0, width):
-				for y in range(0, height):
-					if (z == 0 or z == width) and (y == 0 or y == height):
-						tiles.append(Vector2i(z, y));
 			
 		room_instant.position = curr_position;
 		

@@ -6,13 +6,6 @@ func _ready():
 func initialize():
 	randomize();
 	get_node("Player").connect("reset_level", reset);
-	var room_0 = get_node("RoomGenerator/Rooms/Room");
-	if room_0:
-		for pos in room_0.get_entrance_positions():
-			if pos.name == "L":
-				var sprite = $Player/Sprite2D.get_rect();
-				$Player.global_position = Vector2(pos.global_position.x+(sprite.size.x/2), pos.global_position.y - (sprite.size.y/2));
-				$Player.process_mode = Node.PROCESS_MODE_PAUSABLE;
 
 func _input(event):
 	if not get_tree().paused:
@@ -34,19 +27,7 @@ func reset():
 	
 	main.fade_out();
 	
-	var room_0 = get_node("RoomGenerator/Rooms/Room");
-	if room_0:
-		for pos in room_0.get_entrance_positions():
-			if pos.name == "L":
-				var sprite = $Player/Sprite2D.get_rect();
-				$Player.global_position = Vector2(pos.global_position.x+(sprite.size.x/2), pos.global_position.y - (sprite.size.y/2));
-				$Player.process_mode = Node.PROCESS_MODE_PAUSABLE;
-				main.fade_in();
-	else:
-		print("FAILURE");
-		get_tree().quit(1);
 	main.fade_in();
-	print("SUCCESS");
 	
 func algo(main):
 	if get_node("Player"):
@@ -59,7 +40,6 @@ func algo(main):
 		elif get_node("RoomGenerator"):
 			pass;
 			
-
 func _process(delta):
 	if Input.is_action_just_pressed("pause"):
 		get_tree().paused = true;
@@ -67,15 +47,9 @@ func _process(delta):
 
 func pause_game(time):
 	$Player.process_mode = Node.PROCESS_MODE_DISABLED;
-	$Player.process_mode = Node.PROCESS_MODE_DISABLED;
-	$Player.process_mode = Node.PROCESS_MODE_DISABLED;
 	Global.pause_game(time);
-	$Player.process_mode = Node.PROCESS_MODE_DISABLED;
-	$Player.process_mode = Node.PROCESS_MODE_DISABLED;
-	$Player.process_mode = Node.PROCESS_MODE_DISABLED;
-	$Player.process_mode = Node.PROCESS_MODE_DISABLED;
-	$Player.process_mode = Node.PROCESS_MODE_DISABLED;
-	$Player.process_mode = Node.PROCESS_MODE_DISABLED;
-	$Player.process_mode = Node.PROCESS_MODE_DISABLED;
-	$Player.process_mode = Node.PROCESS_MODE_DISABLED;
-	
+
+func _on_dungeon_finished_generation(entry_pos):
+	if get_node("Player"):
+		var player = get_node("Player");
+		player.position = entry_pos;

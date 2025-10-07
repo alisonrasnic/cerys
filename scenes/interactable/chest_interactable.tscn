@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://hs31f5rvbv5j"]
+
+[ext_resource type="Script" path="res://scenes/interactable/chest_interactable.gd" id="2_8bhkk"]
+[ext_resource type="PackedScene" uid="uid://drvbcakpp4jy1" path="res://scenes/components/actor_component.tscn" id="2_y54f8"]
+[ext_resource type="Texture2D" uid="uid://c2x0ahm0ota1j" path="res://assets/sprites/interactables/chest.png" id="3_c73n0"]
+[ext_resource type="PackedScene" uid="uid://dugsr48bg5rxh" path="res://scenes/components/audio/round_robin_audio_2d.tscn" id="4_rxqt4"]
+[ext_resource type="PackedScene" uid="uid://cmipc60fogsco" path="res://scenes/proto/lockpicking_test.tscn" id="5_wdt88"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kyy7h"]
+radius = 51.0392
+
+[node name="Chest" type="Node2D" node_paths=PackedStringArray("lockpicking", "actor")]
+script = ExtResource("2_8bhkk")
+lockpicking = NodePath("LockpickingTest")
+actor = NodePath("Actor")
+
+[node name="Actor" parent="." node_paths=PackedStringArray("audio_component", "sprite") instance=ExtResource("2_y54f8")]
+audio_component = NodePath("../RoundRobinAudio2D")
+sprite = NodePath("../Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_c73n0")
+centered = false
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = 13.0
+offset_top = 10.0
+offset_right = 54.0
+offset_bottom = 33.0
+text = "E"
+horizontal_alignment = 1
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(32, 45)
+shape = SubResource("CircleShape2D_kyy7h")
+
+[node name="RoundRobinAudio2D" parent="." instance=ExtResource("4_rxqt4")]
+
+[node name="LockpickingTest" parent="." instance=ExtResource("5_wdt88")]
+visible = false
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

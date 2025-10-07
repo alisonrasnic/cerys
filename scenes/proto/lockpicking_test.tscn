@@ -1,0 +1,82 @@
+[gd_scene load_steps=11 format=3 uid="uid://cmipc60fogsco"]
+
+[ext_resource type="Script" path="res://scenes/proto/lockpicking_test.gd" id="1_ce68m"]
+[ext_resource type="PackedScene" uid="uid://dugsr48bg5rxh" path="res://scenes/components/audio/round_robin_audio_2d.tscn" id="2_fxfyx"]
+[ext_resource type="AudioStream" uid="uid://djpgm8l5gs7v0" path="res://design/fl studio/lock_click - Marker #1_2.wav" id="3_nto6u"]
+[ext_resource type="AudioStream" uid="uid://cxf7m3pccvp6w" path="res://design/fl studio/lock_click - Marker #2_2.wav" id="4_kpo6i"]
+[ext_resource type="AudioStream" uid="uid://en47mtgt16oi" path="res://design/fl studio/lock_click - Marker #3_2.wav" id="5_g6dxr"]
+[ext_resource type="AudioStream" uid="uid://bipjl3mhd7yxe" path="res://design/fl studio/lock_click - Marker #4_2.wav" id="6_ae2pd"]
+[ext_resource type="AudioStream" uid="uid://dvwso3tl0r66r" path="res://design/fl studio/lock_click - Marker #5_2.wav" id="7_74nih"]
+[ext_resource type="AudioStream" uid="uid://dtgc6t54lar5p" path="res://design/fl studio/lock_click - Marker #6_2.wav" id="8_rpv3s"]
+[ext_resource type="AudioStream" uid="uid://c6hlllneup2jy" path="res://design/fl studio/lock_click - Marker #7_2.wav" id="9_qut87"]
+[ext_resource type="AudioStream" uid="uid://mf77girfjbh0" path="res://design/fl studio/lock_click - Marker #8_2.wav" id="10_1agmk"]
+
+[node name="LockpickingTest" type="CanvasLayer" node_paths=PackedStringArray("sound", "first")]
+script = ExtResource("1_ce68m")
+sound = NodePath("RoundRobinAudio2D")
+first = NodePath("VBoxContainer/GridContainer/CheckBox")
+random_click_prob = 200.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = -62.5
+offset_right = 46.0
+offset_bottom = 62.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Locked"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="CheckBox2" type="CheckBox" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="CheckBox3" type="CheckBox" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="CheckBox4" type="CheckBox" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="CheckBox5" type="CheckBox" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="CheckBox6" type="CheckBox" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="CheckBox7" type="CheckBox" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="CheckBox8" type="CheckBox" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="CheckBox9" type="CheckBox" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="RoundRobinAudio2D" parent="." instance=ExtResource("2_fxfyx")]
+streams = [ExtResource("3_nto6u"), ExtResource("4_kpo6i"), ExtResource("5_g6dxr"), ExtResource("6_ae2pd"), ExtResource("7_74nih"), ExtResource("8_rpv3s"), ExtResource("9_qut87"), ExtResource("10_1agmk")]
+
+[connection signal="toggled" from="VBoxContainer/GridContainer/CheckBox" to="." method="_on_check_box_toggled" binds= [0]]
+[connection signal="toggled" from="VBoxContainer/GridContainer/CheckBox2" to="." method="_on_check_box_toggled" binds= [1]]
+[connection signal="toggled" from="VBoxContainer/GridContainer/CheckBox3" to="." method="_on_check_box_toggled" binds= [2]]
+[connection signal="toggled" from="VBoxContainer/GridContainer/CheckBox4" to="." method="_on_check_box_toggled" binds= [3]]
+[connection signal="toggled" from="VBoxContainer/GridContainer/CheckBox5" to="." method="_on_check_box_toggled" binds= [4]]
+[connection signal="toggled" from="VBoxContainer/GridContainer/CheckBox6" to="." method="_on_check_box_toggled" binds= [5]]
+[connection signal="toggled" from="VBoxContainer/GridContainer/CheckBox7" to="." method="_on_check_box_toggled" binds= [6]]
+[connection signal="toggled" from="VBoxContainer/GridContainer/CheckBox8" to="." method="_on_check_box_toggled" binds= [7]]
+[connection signal="toggled" from="VBoxContainer/GridContainer/CheckBox9" to="." method="_on_check_box_toggled" binds= [8]]

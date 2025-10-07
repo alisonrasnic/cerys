@@ -29,6 +29,8 @@ signal reset_level;
 var states_stack = [];
 var state = null;
 
+var player_state = PlayerState.new();
+
 var dash_distance = 60.0*5;
 var facing = '';
 var dash_timer = 0.0;

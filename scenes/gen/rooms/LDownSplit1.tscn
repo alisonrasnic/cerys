@@ -7,9 +7,9 @@
 
 [node name="Room" instance=ExtResource("1_losgq")]
 
-[node name="L" type="Node2D" parent="Entrances" index="0"]
+[node name="L2" type="Node2D" parent="Entrances" index="0"]
 
-[node name="R" type="Node2D" parent="Entrances" index="1"]
+[node name="R2" type="Node2D" parent="Entrances" index="1"]
 position = Vector2(832, 0)
 
 [node name="Bug" parent="." index="1"]

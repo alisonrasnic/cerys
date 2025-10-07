@@ -12,7 +12,7 @@ var old_playing: bool = false;
 var idx = 0;
 
 func _ready():
-	$AudioStreamPlayer2D.max_distance = 500;
+	$AudioStreamPlayer2D.max_distance = 50000;
 	$AudioStreamPlayer2D.connect("finished", is_finished);
 
 func play_rand():

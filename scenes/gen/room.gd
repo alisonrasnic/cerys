@@ -8,6 +8,12 @@ var rect: Rect2i;
 @export var tiles: TileMap;
 @export var area: Area2D;
 
+var width: int = 0;
+var height: int = 0;
+
+func _init():
+	pass;
+
 func _ready():
 	if area:
 		area.connect("area_entered", _on_area_entered);
@@ -15,6 +21,19 @@ func _ready():
 	if tiles:
 		rect = Rect2i(tiles.get_used_rect().position*64, tiles.get_used_rect().size*64);
 		#add_noise();
+	else:
+		var new_tiles = TileMap.new();
+		new_tiles.set_layer_enabled(0, true);
+		new_tiles.tile_set = load("res://scenes/gen/rooms/room_tilemap.tres");
+		var path = [];
+		for x in range(0, 20):
+			for y in range(0, 20):
+				if (x == 0 || x == 19) or (y == 0 || y == 19):
+					path.append(Vector2i(x, y));
+		new_tiles.set_cells_terrain_connect(0, path, 0, 0, 0);
+		get_node("Entrances/R").set_position(Vector2(20*64, 20*64));
+		print(get_node("Entrances/R").get_position());
+		add_child(new_tiles);
 		
 func set_tiles(tiles):
 	add_child(tiles);

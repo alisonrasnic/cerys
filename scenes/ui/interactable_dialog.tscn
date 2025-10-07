@@ -47,6 +47,9 @@ texture = ExtResource("2_g3kn0")
 centered = false
 
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer"]
+light_mask = 0
+visibility_layer = 2
+z_index = 5
 layout_mode = 2
 text = "Interact"
 horizontal_alignment = 2

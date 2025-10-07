@@ -2,16 +2,14 @@
 
 [ext_resource type="Script" path="res://scenes/game.gd" id="1_1hthd"]
 [ext_resource type="PackedScene" uid="uid://bxsbbuk2ou42g" path="res://scenes/player/player.tscn" id="2_qfuxq"]
-[ext_resource type="PackedScene" uid="uid://nswen17gcm0s" path="res://scenes/gen/room_generator.tscn" id="3_hrsh3"]
 [ext_resource type="PackedScene" uid="uid://bm2hl6w8gol8s" path="res://scenes/ui/menus/death_screen.tscn" id="4_0p4iq"]
 [ext_resource type="PackedScene" uid="uid://da21wmrgfldbm" path="res://scenes/ui/menus/pause_menu.tscn" id="5_vb8ft"]
+[ext_resource type="PackedScene" uid="uid://wphuhihhvg0j" path="res://scenes/gen/dungeon_2/dungeon_2.tscn" id="5_yg1kq"]
 
 [node name="game" type="Node2D" groups=["game"]]
 script = ExtResource("1_1hthd")
 
 [node name="Player" parent="." instance=ExtResource("2_qfuxq")]
-
-[node name="RoomGenerator" parent="." instance=ExtResource("3_hrsh3")]
 
 [node name="Mus" type="AudioStreamPlayer" parent="."]
 
@@ -20,3 +18,7 @@ visible = false
 
 [node name="PauseMenu" parent="." instance=ExtResource("5_vb8ft")]
 visible = false
+
+[node name="Dungeon" parent="." instance=ExtResource("5_yg1kq")]
+
+[connection signal="finished_generation" from="Dungeon" to="." method="_on_dungeon_finished_generation"]
