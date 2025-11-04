@@ -1,5 +1,7 @@
 extends Camera2D
 
+class_name ScreenShakeCamera;
+
 var amount = 0;
 var orig_offset;
 

@@ -1,6 +1,4 @@
-[gd_resource type="TileSet" load_steps=22 format=3 uid="uid://bxgq3802otums"]
-
-[ext_resource type="Texture2D" uid="uid://car2768w4shvb" path="res://assets/sprites/tilemap/tilemap_2.png" id="1_khtkh"]
+[gd_resource type="TileSet" load_steps=21 format=3 uid="uid://bxgq3802otums"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_cfmw3"]
 polygon = PackedVector2Array(-1.125, 8, -1.25, -1.125, 1.5, -0.875, 1.375, -1.5, 1.125, 8)
@@ -60,7 +58,6 @@ polygon = PackedVector2Array(-8, 1, -1, 1, -1, 8, -8, 8)
 polygon = PackedVector2Array(-8, -1, -1, -1, -1, -8, -8, -8)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i5nqi"]
-texture = ExtResource("1_khtkh")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0

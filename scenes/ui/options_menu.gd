@@ -10,6 +10,7 @@ var config = ConfigFile.new();
 @export var window_size_selector: OptionButton;
 @export var scale_selector: OptionButton;
 @export var fullscreen_toggler: CheckButton;
+@export var jump_button: BindingButton;
 
 func _init():
 	pass;
@@ -47,7 +48,10 @@ func _enter_tree():
 		elif section == "Input":
 			var jump = config.get_value(section, "jump");
 			if jump:
-				InputMap.set("jump", jump);
+				InputMap.action_erase_events("jump");
+				InputMap.action_add_event("jump", jump);
+				if jump_button:
+					jump_button.text = jump.as_text();
 	
 	if window_size_selector:
 		for x in window_sizes:
@@ -82,9 +86,9 @@ func _on_scale_picker_item_selected(index):
 	set_config("Video", "scale", index);
 
 func _on_jump_bind_binding_changed(input):
-	if not InputMap.action_has_event("jump", input):
-		InputMap.set("jump", input);
-		set_config("Input", "jump", input);
+	InputMap.action_erase_events("jump");
+	InputMap.action_add_event("jump", input);
+	set_config("Input", "jump", input);
 
 func _on_exit_button_pressed():
 	get_tree().quit();

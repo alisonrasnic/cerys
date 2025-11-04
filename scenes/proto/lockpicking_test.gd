@@ -66,6 +66,7 @@ func _on_check_box_toggled(toggled_on, extra_arg_0):
 	# check if bit matches our combination
 	if toggled_on and (combination_has_bit(bit) or random_clicks.has(extra_arg_0)):
 		sound.play_rand();
+		get_tree().get_first_node_in_group("camera").shake(2.5);
 
 func combination_has_bit(bit):
 	var idx = (log(bit)/log(2)) as int;

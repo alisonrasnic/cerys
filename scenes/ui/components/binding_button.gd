@@ -1,5 +1,7 @@
 extends Button
 
+class_name BindingButton;
+
 signal binding_changed(input);
 
 var taking_input = false;
@@ -22,7 +24,6 @@ func _input(event):
 func _on_pressed():
 	if not taking_input:
 		taking_input = true;
-
 
 func _on_focus_exited():
 	taking_input = false;

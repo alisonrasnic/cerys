@@ -1,6 +1,11 @@
 extends Node
 
-var GameState: Dictionary = {"PlayerIsAggroed": false};
+class_name GameGlobal;
+
+var GameState: Dictionary = {
+	"PlayerIsAggroed": false,
+	"Perks": [],
+};
 var Fullscreen: bool = false;
 
 var _time = 0.0;
@@ -14,7 +19,11 @@ func _ready():
 	initialize();
 
 func initialize():
-	GameState = {"PlayerIsAggroed": false};
+	GameState = {
+		"PlayerIsAggroed": false,
+		"Perks": [],
+	};
+	
 	_time = FREEZE_TIME;
 	game = get_tree().get_first_node_in_group("game");
 	

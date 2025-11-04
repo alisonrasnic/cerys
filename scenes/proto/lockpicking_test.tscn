@@ -71,6 +71,10 @@ layout_mode = 2
 [node name="RoundRobinAudio2D" parent="." instance=ExtResource("2_fxfyx")]
 streams = [ExtResource("3_nto6u"), ExtResource("4_kpo6i"), ExtResource("5_g6dxr"), ExtResource("6_ae2pd"), ExtResource("7_74nih"), ExtResource("8_rpv3s"), ExtResource("9_qut87"), ExtResource("10_1agmk")]
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(307, 181)
+amount = 900
+
 [connection signal="toggled" from="VBoxContainer/GridContainer/CheckBox" to="." method="_on_check_box_toggled" binds= [0]]
 [connection signal="toggled" from="VBoxContainer/GridContainer/CheckBox2" to="." method="_on_check_box_toggled" binds= [1]]
 [connection signal="toggled" from="VBoxContainer/GridContainer/CheckBox3" to="." method="_on_check_box_toggled" binds= [2]]

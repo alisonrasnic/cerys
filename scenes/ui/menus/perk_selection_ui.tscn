@@ -1,0 +1,100 @@
+[gd_scene load_steps=3 format=3 uid="uid://weps7ir3wvav"]
+
+[ext_resource type="Texture2D" uid="uid://co337vmu8vc2h" path="res://assets/sprites/ui/menus/perk_template.png" id="1_5pe0s"]
+[ext_resource type="Script" path="res://scenes/ui/menus/perk_selection_ui.gd" id="1_hwya4"]
+
+[node name="PerkSelectionUI" type="CanvasLayer" node_paths=PackedStringArray("sprite_1", "sprite_2", "sprite_3")]
+script = ExtResource("1_hwya4")
+sprite_1 = NodePath("MarginContainer/TabContainer/Perk 1/VBoxContainer/CenterContainer/Sprite2D")
+sprite_2 = NodePath("MarginContainer/TabContainer/Perk 2/VBoxContainer/CenterContainer/Sprite2D")
+sprite_3 = NodePath("MarginContainer/TabContainer/Perk 3/VBoxContainer/CenterContainer/Sprite2D")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Perk 1" type="MarginContainer" parent="MarginContainer/TabContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Perk 1"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/TabContainer/Perk 1/VBoxContainer"]
+layout_mode = 2
+text = "Perk 1 description is in here."
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/TabContainer/Perk 1/VBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="MarginContainer/TabContainer/Perk 1/VBoxContainer/CenterContainer"]
+texture = ExtResource("1_5pe0s")
+centered = false
+
+[node name="Button" type="Button" parent="MarginContainer/TabContainer/Perk 1/VBoxContainer"]
+layout_mode = 2
+text = "Take perk"
+
+[node name="Perk 2" type="MarginContainer" parent="MarginContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Perk 2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/TabContainer/Perk 2/VBoxContainer"]
+layout_mode = 2
+text = "Perk 2 description is in here."
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/TabContainer/Perk 2/VBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="MarginContainer/TabContainer/Perk 2/VBoxContainer/CenterContainer"]
+texture = ExtResource("1_5pe0s")
+centered = false
+
+[node name="Button" type="Button" parent="MarginContainer/TabContainer/Perk 2/VBoxContainer"]
+layout_mode = 2
+text = "Take perk"
+
+[node name="Perk 3" type="MarginContainer" parent="MarginContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Perk 3"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/TabContainer/Perk 3/VBoxContainer"]
+layout_mode = 2
+text = "Perk 3 description is in here."
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/TabContainer/Perk 3/VBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="MarginContainer/TabContainer/Perk 3/VBoxContainer/CenterContainer"]
+texture = ExtResource("1_5pe0s")
+centered = false
+
+[node name="Button" type="Button" parent="MarginContainer/TabContainer/Perk 3/VBoxContainer"]
+layout_mode = 2
+text = "Take perk"

@@ -153,3 +153,12 @@ func stun():
 
 func get_width():
 	return $CollisionComponent.shape.get_rect().size.x;
+
+func save():
+	pass;
+	# we need to save:
+	#  position
+	#  weapon
+	#  stats
+	#  perks
+	#  lore

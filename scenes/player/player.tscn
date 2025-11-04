@@ -1961,7 +1961,7 @@ turbulence_noise_scale = 3.842
 [sub_resource type="CircleShape2D" id="CircleShape2D_guer1"]
 radius = 29.1548
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input_component", "hurtbox_component", "hitbox_component", "stats_component", "animation") groups=["player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input_component", "hurtbox_component", "hitbox_component", "stats_component", "animation") groups=["persist", "player"]]
 collision_mask = 30
 script = ExtResource("1_2ciwp")
 input_component = NodePath("InputComponent")
@@ -2036,7 +2036,7 @@ libraries = {
 "": SubResource("AnimationLibrary_fortk")
 }
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." groups=["camera"]]
 offset = Vector2(0, -64)
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0

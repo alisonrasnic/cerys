@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbdfq5sx37eum"]
+
+[ext_resource type="Script" path="res://scenes/gen/dungeon_1/dungeon_1.gd" id="1_74ddj"]
+[ext_resource type="TileSet" uid="uid://cixrx41psgbq2" path="res://scenes/gen/samurai_camp/samurai_tileset.tres" id="2_oeq2u"]
+[ext_resource type="PackedScene" uid="uid://cisq43ihn24au" path="res://scenes/interactable/locked_door_interactable.tscn" id="3_a7g2k"]
+
+[node name="Dungeon1" type="Node2D"]
+script = ExtResource("1_74ddj")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("2_oeq2u")
+format = 2
+layer_0/z_index = -1
+
+[node name="LockedDoorInteractable" parent="." instance=ExtResource("3_a7g2k")]
+position = Vector2(710, -69)
