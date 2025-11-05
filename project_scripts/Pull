@@ -1,0 +1,3 @@
+#!/bin/bash
+cp -rf $DROPBOX_PATH/assets ../assets
+cp -rf $DROPBOX_PATH/design ../design
